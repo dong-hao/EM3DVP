@@ -5,17 +5,19 @@ EM3DVP is a package of Matlab scripts. The primary goal is to provide the users 
 
 ## something like a disclaimer
 
-I wrote this script just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational case only. But of course, I cannot guarantee the script to be working properly and
+I wrote this script just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and
 % calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't expect that I will reply quickly!).  
 
 ## UNITS
-currently the internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B to convert to Ohm (used by Weerachai's code) one need to multiply the values by ~796 to convert to V/m/T (used by ModEM) one need to multiply the values by 0.001 
+currently the internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B. 
+To convert to Ohm (used by Weerachai's code) one need to multiply the values by ~796. 
+To convert to V/m/T (used by ModEM) one need to multiply the values by 0.001 
 
 ## SIGN      
-currently the internal the time harmonic sign convention is plus (+), or exp(i\omega t). Be careful when you need to deal with data with (-) convention. 
+currently the internal time harmonic sign convention is plus (+), or exp(i\omega t). Be careful when you need to deal with data with (-) convention. 
 
 ## ERRORS    
-currently the internal error here is standard deviation, it worths noting that most of the time the survey files use variance 
+currently the internal error here is standard deviation, it worths noting that most of the survey file formats use variance. 
 
 ## MISC NOTES      
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
@@ -35,10 +37,20 @@ Distributed under the GPL v3 license. See ``LICENSE`` for more information.
 
 [https://github.com/dong-hao/EM3DVP]
 
+## Contributing
+
+Those who are willing to contribute are welcomed to try - but I probably won't have the time to review the commits frequently. 
+
+1. Fork it (<https://github.com/dong-hao/EM3DVP/fork>)
+2. Create your feature branch (`git checkout -b feature/somename`)
+3. Commit your changes (`git commit -am 'Add some name'`)
+4. Push to the branch (`git push origin feature/somename`)
+5. Create a new Pull Request
+
 ## Getting Started
 
 ###  a. prerequisite 
-modelling: You can begin your modelling from (literally) scratch with WVP. However, if you plan to include topography/bathymetry in your model, you will need digital elevation data in .xyz format (lon lat elev) for WVP to read. If you have designed your site distribution in other software, you will also have to convert them into xyz format (Northing Easting Elevation). pre-existed ModEM/WSINV3D/WinGlink Models can be imported
+Modelling: You can begin your modelling from (literally) scratch with EM3DVP. However, if you plan to include topography/bathymetry in your model, you will need digital elevation data in .xyz format (lon lat elev) for EM3DVP to read. If you have designed your site distribution in other software, you will also have to convert them into xyz format (Northing Easting Elevation). Pre-existed ModEM/WSINV3D/WinGlink Models can be imported.
 
 inversion: you will need your MT field data files (.EDI files) as well as the digital elevation file or model files, as descripted in modelling part.
 
@@ -81,10 +93,4 @@ Q: What the hell are the numbers in the input slots below the "set boundary" tic
 
 A: The three numbers are the number of meshes NOT TO display on each side of the model. For example, 6 in the first slot means the most north 6 meshes and the most south 6 meshes will not be displayed in the plot (so that we can concentrate in our study area). Likewise, the 8 in the third slot means the deepest 8 meshes will not be displayed in the plot (so that we can concentrate in the shallow part)
 
-## Contributing
 
-1. Fork it (<https://github.com/dong-hao/EM3DVP/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
