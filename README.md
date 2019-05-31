@@ -38,13 +38,17 @@ Distributed under the GPL v3 license. See ``LICENSE`` for more information.
 
 ## Contributing
 
-Those who are willing to contribute are welcomed to try - but I probably won't have the time to review the commits frequently. 
+Those who are willing to contribute are welcomed to try - but I probably won't have the time to review the commits frequently (not that I would expect there will be many, also). 
 
 1. Fork it (<https://github.com/dong-hao/EM3DVP/fork>)
 2. Create your feature branch (`git checkout -b feature/somename`)
 3. Commit your changes (`git commit -am 'Add some name'`)
 4. Push to the branch (`git push origin feature/somename`)
 5. Create a new Pull Request
+
+## Commercial Usage
+
+Commercial usage is not forbidden by the license - but you are recommended to contact Dr. Naser Meqbel for his more advanced GUI. You will get a more robust software with more useful features. Visit his website: http://www.consulting-geo.com for details. I should ask him for affiliate commission (reads: money) for posting his link here! 
 
 ## Getting Started
 
