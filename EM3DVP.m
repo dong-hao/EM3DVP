@@ -10,15 +10,12 @@
 %--------------------something like a disclaimer-------------------------%
 % I wrote this script just for the convenience of myself and people in our
 % group. Those who want to try this script are free to use it on academic/
-% educational case only. 
+% educational case.  
 % But of course, I cannot guarantee the script to be working properly and
 % calculating correctly (although I wish so)
-% For the stage, this script is only distributed to a range of personal 
-% communications of the author (a.k.a. friends and co-workers). 
-% Hopefully, I would think of a series of FORMAL AGREEMENTS when I decide
-% to publish it somewhere. 
 % 
 % Have you any questions or suggestions, please feel free to contact me.
+% (but don't you expect I will reply quickly!)
 %------------------------------------------------------------------------%
 %                               DONG Hao                                 %
 %                          donghao@cugb.edu.cn                           %
@@ -63,15 +60,16 @@ global default custom platform
 % check the current platform
 % Note: haven't tested this on Mac OSX yet.
 %       If you have time reading this, test it!
+cdir = pwd;
 if ispc
     platform='windows';
-    addpath(genpath('.\src'),'-end');
+    addpath(genpath([cdir '\src']),'-end');
 elseif isunix
     platform='unixoid';
-    addpath(genpath('./src'),'-end');
+    addpath(genpath([cdir '/src']),'-end');
 else
     platform='unknown';
-    addpath(genpath('./src'),'-end');
+    addpath(genpath([cdir '/src']),'-end');
 end
 
 ScriptVersion='EM3D2019beta1';
