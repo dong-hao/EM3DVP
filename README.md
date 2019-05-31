@@ -5,7 +5,7 @@ EM3DVP is a package of Matlab scripts. The primary goal is to provide the users 
 
 ## something like a disclaimer
 
-I wrote this script just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't expect that I will reply quickly!).  
+I wrote the package just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't expect that I will reply quickly!).  
 
 ## UNITS
 currently the internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B. 
