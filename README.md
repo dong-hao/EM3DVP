@@ -7,6 +7,11 @@ EM3DVP is a package of Matlab scripts. The primary goal is to provide the users 
 
 I wrote the package just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't expect that I will reply quickly!).  
 
+## HOW TO GET IT
+```
+git clone https://github.com/dong-hao/EM3DVP/ your_local_folder
+```
+
 ## UNITS
 currently the internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B. 
 To convert to Ohm (used by Weerachai's code) one need to multiply the values by ~796. 
