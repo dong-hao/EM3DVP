@@ -31,9 +31,9 @@ for isite=1:nsite
             Vb2=resp(isite).phs(f,3);
         case 4 %yx
             Va1=data(isite).rho(f,5);
-            Vb1=data(isite).phs(f,5);
+            Vb1=data(isite).phs(f,5)+pi;
             Va2=resp(isite).rho(f,5);
-            Vb2=resp(isite).phs(f,5);
+            Vb2=resp(isite).phs(f,5)+pi;
         case 5 %tx
             Va1=data(isite).tf(f,13);
             Vb1=data(isite).tf(f,14);

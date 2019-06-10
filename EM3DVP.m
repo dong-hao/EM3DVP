@@ -27,7 +27,7 @@
 %            multiply the values by ~796
 %            to convert to V/m/T (used by ModEM) one need to multiply the
 %            values by 0.001 
-% SIGN:      currently the internal the time harmonic sign convention is 
+% SIGN:      currently the internal time harmonic sign convention is 
 %            plus (+), or exp(i\omega t). Be careful when you
 %            need to deal with data with (-) convention. 
 % ERRORS:    currently the internal error here is standard deviation, it

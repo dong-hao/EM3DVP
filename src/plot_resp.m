@@ -492,19 +492,19 @@ switch opt
         hold(handle.axis(1),'off');
         hold(handle.axis(2),'off');
     case 'xyyx'
-        phsxy=-phsxy*180/pi;
+        phsxy=phsxy*180/pi;
         phsxye=phsxye*180/pi; 
-        phsyx=-phsyx*180/pi;
+        phsyx=phsyx*180/pi;
         phsyxe=phsyxe.*180/pi; 
-        phsyx=phsyx-180;
+        phsyx=phsyx+180;
         minrho=min(min(rhoxy),min(rhoyx));
         minrho=minrho/3;
         maxrho=max(max(rhoxy),max(rhoyx));
         maxrho=maxrho*3;
         if flagresp==1
-            phsrxy=-phsrxy*180/pi;
-            phsryx=-phsryx*180/pi;
-            phsryx=phsryx-180;
+            phsrxy=phsrxy*180/pi;
+            phsryx=phsryx*180/pi;
+            phsryx=phsryx+180;
             minrrho=min(min(rhorxy),min(rhoryx));
             minrrho=minrrho/3;
             maxrrho=max(max(rhorxy),max(rhoryx));
