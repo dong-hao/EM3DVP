@@ -37,11 +37,11 @@ rhoyye=sqrt(zyyvar.^2./freq.*rhoyy*2/5);
 phsyye=sqrt(zyyvar.^2/2./(zyyr.^2+zyyi.^2).^0.5);
 %=========calculate rho and phase from data=======%
 rhoxy=(zxyr.^2+zxyi.^2)./freq./5;
-phsxy=-atan2(zxyi,zxyr);
+phsxy=atan2(zxyi,zxyr);
 rhoxye=sqrt(zxyvar.^2./freq.*rhoxy*2/5);
 phsxye=sqrt(zxyvar.^2/2./(zxyr.^2+zxyi.^2).^0.5);
 rhoyx=(zyxr.^2+zyxi.^2)./freq./5;
-phsyx=-atan2(zyxi,zyxr);
+phsyx=atan2(zyxi,zyxr);
 rhoyxe=sqrt(zyxvar.^2./freq.*rhoyx*2/5);
 phsyxe=sqrt(zyxvar.^2/2./(zyxr.^2+zyxi.^2).^0.5);
 data.rho(:,1)=rhoxx;

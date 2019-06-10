@@ -27,11 +27,11 @@ while(~feof(fid_data))
         line=fgetl(fid_data);
         if isempty(s)
             if strfind(line,'+')
-                signs = -1;
-            elseif strfind(line,'-')
                 signs = 1;
-            else % assume plus sign
+            elseif strfind(line,'-')
                 signs = -1;
+            else % assume plus sign
+                signs = 1;
             end
         else
             signs=s;
