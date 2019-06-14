@@ -66,6 +66,6 @@ else
     custom.flist=1:data(1).nfreq;
     custom.ftable=data(1).freq;
 end
-refresh_status(hObject,eventdata,handles)
+refresh_status(hObject,eventdata,handles.parent)
 return;
 
