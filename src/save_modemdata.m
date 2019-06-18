@@ -67,12 +67,6 @@ else
                     tvar=1; % now use an absolute value as error for T
                     % tvar=sqrt((data(isite).tf(ifreq,13))^2+(data(isite).t
                     % f(ifreq,14))^2);
-%                     errmat(isite,ifreq,1)=zvar1*varxxyy;
-%                     errmat(isite,ifreq,2)=zvar1*varxyyx;
-%                     errmat(isite,ifreq,3)=zvar2*varxyyx;
-%                     errmat(isite,ifreq,4)=zvar2*varxxyy;
-%                     errmat(isite,ifreq,5)=tvar*vartxty;
-%                     errmat(isite,ifreq,6)=tvar*vartxty;
                     if zvar1*varxxyy>stderr(isite,ifreq,1)
                         errmat(isite,ifreq,1)=zvar1*varxxyy;
                     end
@@ -97,19 +91,9 @@ else
         emap=ones(Nsite,nfreq,6);
         for isite=1:Nsite
             emap(isite,:,:)=data(isite).emap(:,[3 6 9 12 15 18]);
-%             if elev(isite)>2300
-%                 emap(isite,1:4,:)=0;
-%             elseif elev(isite)>1800
-%                 emap(isite,1:3,:)=0;
-%             elseif elev(isite)>1300
-%                 emap(isite,1:2,:)=0;
-%             elseif elev(isite)>800
-%                 emap(isite,1,:)=0;
-%             end
         end
-        emap(emap==0)=1e10;
-        errmat=errmat.*emap;
-        errmat(errmat==0)=1e10;
+        errmat(emap==0)=errmat(emap==0).*1e10;
+        % errmat(errmat==0)=1e10;
         cd(datapath)
         fid=fopen(fullfile(datapath,datafile),'w');%set data file name here
         %=================write the file header===============%
@@ -139,37 +123,69 @@ else
         for s=1:Nsite % site loop
             for f=1:nfreq % freq loop
                 if InvType==2||InvType==4 % only off-diagonal elements are needed for Z
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZXY \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[4 5]),errmat(s,ftable(f),2));
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZYX \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[7 8]),errmat(s,ftable(f),3));
+                    if emap(s,f,2) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZXY \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[4 5]),errmat(s,ftable(f),2));
+                    end
+                    if emap(s,f,3) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZYX \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[7 8]),errmat(s,ftable(f),3));
+                    end
                 elseif InvType==1||InvType==5 % full impedance for Z
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZXX \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[1 2]),errmat(s,ftable(f),1));
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZXY \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[4 5]),errmat(s,ftable(f),2));
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZYX \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[7 8]),errmat(s,ftable(f),3));
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZYY \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[10 11]),errmat(s,ftable(f),4));
+                    if emap(s,f,1) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZXX \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[1 2]),errmat(s,ftable(f),1));
+                    end
+                    if emap(s,f,2) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZXY \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[4 5]),errmat(s,ftable(f),2));
+                    end
+                    if emap(s,f,3) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZYX \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[7 8]),errmat(s,ftable(f),3));
+                    end
+                    if emap(s,f,4) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t ZYY \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[10 11]),errmat(s,ftable(f),4));
+                    end
                 end
             end
         end
         if InvType==3  % start writing tippers
             for s=1:Nsite % site loop
                 for f=1:nfreq % freq loop
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TX \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[13 14]),errmat(s,ftable(f),5));
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TY \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[16 17]),errmat(s,ftable(f),6));
+                    if emap(s,f,5) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TX \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[13 14]),errmat(s,ftable(f),5));
+                    end
+                    if emap(s,f,6) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TY \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[16 17]),errmat(s,ftable(f),6));
+                    end
                 end
             end
         elseif InvType>=4 % we have tipper head to write.
@@ -185,12 +201,20 @@ else
             %=================start writing tippers===============%
             for s=1:Nsite % site loop
                 for f=1:nfreq % freq loop
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TX \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[13 14]),errmat(s,ftable(f),5));
-                    fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TY \t %12.4E \t %12.4E \t %12.4E \n',...
-                        1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                        xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[16 17]),errmat(s,ftable(f),6));
+                    if emap(s,f,5) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TX \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[13 14]),errmat(s,ftable(f),5));
+                    end
+                    if emap(s,f,6) == 0 
+                        disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
+                    else
+                        fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TY \t %12.4E \t %12.4E \t %12.4E \n',...
+                            1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),[16 17]),errmat(s,ftable(f),6));
+                    end
                 end
             end
         end

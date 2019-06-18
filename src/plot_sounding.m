@@ -248,7 +248,9 @@ else
     legend(handle.axis(1),'TX real','TY real',...
             'location','NorthWest')
     legend(handle.axis(2),'TX imag.','TY imag.',...
-            'location','NorthWest')    
+            'location','NorthWest')            
+    set(handle.axis(1),'ylim',[-1 1])           
+    set(handle.axis(2),'ylim',[-1 1])    
 end
 return
 
