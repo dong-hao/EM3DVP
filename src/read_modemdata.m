@@ -44,7 +44,7 @@ while(~feof(fid_data))
         else %[mV/km]/nT
             zmul=1;
         end
-        TFrotate=fscanf(fid_data,'%*s %f\n',1);
+        rotate=fscanf(fid_data,'%*s %f\n',1);
         latlon=fscanf(fid_data,'%*s %f %f\n',2);
         lat=latlon(1);
         lon=latlon(2);
@@ -86,7 +86,7 @@ while(~feof(fid_data))
                 try
                     str=sscanf(line,'%*f %s %*f %*f %*f %*f %*f %*s %*f %*f %*f');
                 catch IERR
-                    if strcmp(IERR.identifier,string)
+                    if strfind(IERR.identifier,'badstring')>0
                         disp(['missing frequency detected @site ' char(sitename{isite}) ' freq # ' num2str(ifreq)])
                         data(isite).emap_o(ifreq:end,:)=0;
                         break
@@ -146,6 +146,9 @@ switch unit
     case 'm'
         %do nothing
 end
+disp(['TF rotation: ' num2str(rotate)]);
+disp(['lat: ' num2str(lat)]);
+disp(['lon: ' num2str(lon)]);
 fclose(fid_data);
 disp('file end reached');
 return
