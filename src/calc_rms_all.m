@@ -4,21 +4,21 @@ function rms=calc_rms_all(data,resp,nsite)
 N=0;temp=0;
 for isite=1:nsite
     nresp=0;
-    if data(isite).emap_o(1,4)==1
+    if ~isempty(find(data(isite).emap_o(:,6)==1,1))
         nresp=nresp+4;
         dat=data(isite).tf_o(:,[4,5,7,8]);
         res=resp(isite).tf_o(:,[4,5,7,8]);
         rsdl=dat-res;
         misfit=rsdl./data(isite).tf_o(:,[6,6,9,9]);
     end
-    if data(isite).emap_o(end,1)==1
+    if ~isempty(find(data(isite).emap_o(:,3)==1,1))
         nresp=nresp+4;
         dat=data(isite).tf_o(:,[1,2,4,5,7,8,10,11]);
         res=resp(isite).tf_o(:,[1,2,4,5,7,8,10,11]);
         rsdl=dat-res;
         misfit=rsdl./data(isite).tf_o(:,[3,3,6,6,9,9,12,12]);
     end
-    if data(isite).emap_o(end,13)==1
+    if ~isempty(find(data(isite).emap_o(:,15)==1,1))
         nresp=nresp+4;
         dat=data(isite).tf_o(:,[1,2,4,5,7,8,10,11,13,14,16,17]);
         res=resp(isite).tf_o(:,[1,2,4,5,7,8,10,11,13,14,16,17]);

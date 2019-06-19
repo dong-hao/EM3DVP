@@ -10,6 +10,38 @@ elseif nargin<3
 end
 %===============open data file===================%
 fid_data = fopen ([fdir,fname],'r');
+% firstly sweep the data file for frequency list
+NL = 0;
+while(~feof(fid_data))
+    line=fgetl(fid_data);
+    NL = NL+1;
+    if NL == 8 
+        tmp=sscanf(line,'%*s %i %i');
+        nfreq=tmp(1);
+        nsite=tmp(2);
+        flist=zeros(nfreq,1);
+        ifreq=0;
+        disp(['start searching for ', num2str(nfreq), ' frequncies'])
+    elseif NL > 8
+        newfreq=1/sscanf(line,'%f %*s %*f %*f %*f %*f %*f %*f %*f %*f %*f',1);
+        iprev = find(abs(flist./newfreq-1)<0.01,1); %check if we have see this before
+        if isempty(iprev) % we have not encounter this frequency before
+            disp(['new freq ', num2str(newfreq), ' Hz found'])
+            ifreq = ifreq + 1;
+            flist(ifreq) = newfreq;
+        end
+        if ifreq == nfreq %we already found all the listed frequencies
+            disp('all freqs located... stop searching')
+            disp([num2str(NL),'(!) lines searched']);
+            break
+        end
+    end
+end
+fclose(fid_data);
+% Benjamin-proof implementation 
+flist = sort(flist,'descend');
+% now re-open the data file
+fid_data = fopen ([fdir,fname],'r');
 block=0;% flag to identify how many blocks of data we have read
 while(~feof(fid_data))
     line=fgetl(fid_data);
@@ -22,6 +54,8 @@ while(~feof(fid_data))
             option='ft';
         elseif ~isempty(strfind(line,'Off_Diagonal'))
             option='oi';
+        else 
+            error('this type of data is not yet supported');
         end
         block=block+1;
         line=fgetl(fid_data);
@@ -48,23 +82,20 @@ while(~feof(fid_data))
         latlon=fscanf(fid_data,'%*s %f %f\n',2);
         lat=latlon(1);
         lon=latlon(2);
-        line=fgetl(fid_data);
-        tmp=sscanf(line,'%*s %i %i');
-        nfreq=tmp(1);
-        Nsite=tmp(2);
+        fgetl(fid_data); %skip the nfreq and nsite parameters
         switch option
             case 'fi'
                 seqs=0:3;
             case 'ft'
-                seqs=4:5;signs=1;zmul=1; % override the sign and multipiler
+                seqs=4:5;zmul=1; % override the multipiler
             case 'oi'
                 seqs=[1,2];
         end
-        xyz=zeros(Nsite,3);
-        location=zeros(Nsite,3);
-        sitename=cell(Nsite,1);
+        xyz=zeros(nsite,3);
+        location=zeros(nsite,3);
+        sitename=cell(nsite,1);
         line=fgetl(fid_data);
-        for isite=1:Nsite% site loop
+        for isite=1:nsite% site loop
             % firstly read some site information...
             str=sscanf(line,'%*f %s %*f %*f %*f %*f %*f %*s %*f %*f %*f');
             num=sscanf(line,'%*f %*s %f %f %f %f %f %*s %*f %*f %*f',5);
@@ -78,9 +109,9 @@ while(~feof(fid_data))
             sitename{isite}=sname;
             if block==1
                 data(isite).nfreq_o=nfreq;
-                data(isite).freq_o=zeros(nfreq,1);
+                data(isite).freq_o=flist;
                 data(isite).tf_o=ones(nfreq,18);
-                data(isite).emap_o=data(isite).tf_o;
+                data(isite).emap_o=zeros(nfreq,18);
             end
             for ifreq=1:nfreq% now loop through periods
                 try
@@ -88,19 +119,22 @@ while(~feof(fid_data))
                 catch IERR
                     if strfind(IERR.identifier,'badstring')>0
                         disp(['missing frequency detected @site ' char(sitename{isite}) ' freq # ' num2str(ifreq)])
-                        data(isite).emap_o(ifreq:end,:)=0;
+                        % data(isite).emap_o(ifreq:end,(seqs+1)*3)=0;
                         break
                     else 
                         rethrow(IERR)
                     end
                 end
                 sname={char(str')};
-                if ~strcmp(presname,sname)
+                if ~strcmp(presname,sname)% we run into another site
                     disp(['missing frequency detected @site ' char(sitename{isite}) ' freq # ' num2str(ifreq)])
-                    data(isite).emap_o(ifreq:end,:)=0;
+                    %data(isite).emap_o(ifreq:end,(seqs+1)*3)=0;
                     break
                 end
-                data(isite).freq_o(ifreq)=1/sscanf(line,'%f %*s %*f %*f %*f %*f %*f %*f %*f %*f %*f',1);
+                % we are still in the same site
+                newfreq=1/sscanf(line,'%f %*s %*f %*f %*f %*f %*f %*f %*f %*f %*f',1);
+                % find the right freq
+                iprev = find(abs(flist./newfreq-1)<0.01,1);
                 for iresp=seqs% resp loop
                     str=sscanf(line,'%*f %*s %*f %*f %*f %*f %*f %s %*f %*f %*f',9);
                     num=sscanf(line,'%*f %*s %*f %*f %*f %*f %*f %*s %f %f %f',3);
@@ -121,13 +155,13 @@ while(~feof(fid_data))
                     end
                     if tresp~=iresp % something is not right!
                         disp(['missing response detected @site ' char(sitename{isite}) ' freq # ' num2str(ifreq)])
-                        data(isite).emap_o(ifreq,iresp*3+3)=0;
+                        % data(isite).emap_o(iprev,iresp*3+3)=0;
                     else
-                        data(isite).tf_o(ifreq,iresp*3+1)=num(1)*zmul;
-                        data(isite).tf_o(ifreq,iresp*3+2)=num(2)*zmul*signs;
-                        data(isite).tf_o(ifreq,iresp*3+3)=num(3)*zmul;
-                        if num(3)>1e+6
-                            data(isite).emap_o(ifreq,iresp*3+3)=0;
+                        data(isite).tf_o(iprev,iresp*3+1)=num(1)*zmul;
+                        data(isite).tf_o(iprev,iresp*3+2)=num(2)*zmul*signs;
+                        data(isite).tf_o(iprev,iresp*3+3)=num(3)*zmul;
+                        if num(3)<1e+5
+                            data(isite).emap_o(iprev,iresp*3+3)=1;
                         end
                         line=fgetl(fid_data);
                     end
