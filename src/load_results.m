@@ -77,6 +77,10 @@ for isite=1:nsite
         fprintf('%8.0f ',(sink-model.z(2))*1000);
         xyz(isite,3)=xyz(isite,3)+sink;
     end
+    rms1=calc_rms(isite, 1:data(isite).nfreq, 'z');
+    rms2=calc_rms(isite, 1:data(isite).nfreq, 'txty');
+    disp(['site ' char(sitename{isite}), ' impedance rms = ',...
+        num2str(rms1), ' tipper rms = ', num2str(rms2)]);
 end
 % ======================a few settings here ==============================%
 subview(hObject,eventdata,handles);
@@ -85,7 +89,7 @@ set(handles.viewbox,'enable','on')
 set(handles.setbox,'enable','on')
 set(handles.buttons,'enable','on')
 rms=calc_rms_all(data,resp,nsite);
-disp(['rms=' num2str(rms)]);
+disp(['overall rms=' num2str(rms)]);
 set(handles.text(1),'string',['rms=' num2str(rms)]);
 return
 %}
