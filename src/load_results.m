@@ -77,10 +77,12 @@ for isite=1:nsite
         fprintf('%8.0f ',(sink-model.z(2))*1000);
         xyz(isite,3)=xyz(isite,3)+sink;
     end
-    rms1=calc_rms(isite, 1:data(isite).nfreq, 'z');
-    rms2=calc_rms(isite, 1:data(isite).nfreq, 'txty');
-    disp(['site ' char(sitename{isite}), ' impedance rms = ',...
-        num2str(rms1), ' tipper rms = ', num2str(rms2)]);
+    rms1=calc_rms(isite, 1:data(isite).nfreq, 'xyyx');
+    rms2=calc_rms(isite, 1:data(isite).nfreq, 'xxyy');
+    rms3=calc_rms(isite, 1:data(isite).nfreq, 'txty');
+    disp(['site ' char(sitename{isite}), ' off-diagnol Z rms = ',...
+        num2str(rms1), ' diagnol Z rms = ', ...
+        num2str(rms2), ' tipper rms = ', num2str(rms3)]);
 end
 % ======================a few settings here ==============================%
 subview(hObject,eventdata,handles);

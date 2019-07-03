@@ -136,7 +136,17 @@ while(~feof(fid_data))
                 % find the right freq
                 iprev = find(abs(flist./newfreq-1)<0.01,1);
                 for iresp=seqs% resp loop
-                    str=sscanf(line,'%*f %*s %*f %*f %*f %*f %*f %s %*f %*f %*f',9);
+                    try
+                        str=sscanf(line,'%*f %*s %*f %*f %*f %*f %*f %s %*f %*f %*f',9);
+                    catch IERR
+                        if strfind(IERR.identifier,'badstring')>0
+                            disp(['missing resp detected @site ' char(sitename{isite}) ' freq # ' num2str(ifreq)])
+                            % data(isite).emap_o(ifreq:end,(seqs+1)*3)=0;
+                            break
+                        else 
+                            rethrow(IERR)
+                        end
+                    end
                     num=sscanf(line,'%*f %*s %*f %*f %*f %*f %*f %*s %f %f %f',3);
                     mode=char(str');
                     switch mode

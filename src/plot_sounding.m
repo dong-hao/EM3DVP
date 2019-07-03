@@ -13,6 +13,7 @@ switch nargin
         end
 end
 isite=custom.currentsite;
+% data(isite)=TFautomask(data(isite));
 freq=data(isite).freq(custom.flist);
 rhoxx=data(isite).rho(custom.flist,1);
 rhoxxe=data(isite).rho(custom.flist,2);

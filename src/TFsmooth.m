@@ -60,7 +60,7 @@ for iPER=pstart:pend   % loop through every period
      end
      % mod(m,3)==1: real TF mod(m,3)==2: imag TF mod(m,3)==0: var of TF
      for m=1:nc0
-        TF(iPER,m)=makewin(logPER(iPER),logper(j:k),loghbw,'b')*TF_o(j:k,m);
+        TF(iPER,m)=makewin(logPER(iPER),logper(j:k),loghbw,'s')*TF_o(j:k,m);
         offset=mod(m,3);
         if offset~=0 
             if TF(iPER,m)==0
@@ -86,8 +86,8 @@ for iPER=1:pstart-1 % note this is right ONLY with boxcar windows.
         emap(iPER,:)=0;
     end
 end
-for iPER=pend+1:NPER
-    if logPER(iPER)<=logper(end)
+for iPER=pend+1:NPER 
+    if logPER(iPER)<=logper(end) % note this is right ONLY with boxcar windows.
         j=find(logper>logPER(iPER)-loghbw,1);
         for m=1:nc0
             TF(iPER,m)=makewin(logPER(iPER),logper(j:end),loghbw,'b')*TF_o(j:end,m);

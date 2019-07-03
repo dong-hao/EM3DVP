@@ -99,7 +99,7 @@ else
         %=================write the file header===============%
 %         lon=custom.lonR;
 %         lat=custom.latR;
-        fprintf(fid,'# %s ModEM INITIAL DATA WRITTEN BY EM3D @ %s \n',...
+        fprintf(fid,'# %s ModEM INITIAL DATA WRITTEN BY EM3DVP @ %s \n',...
             pname,date);
         fprintf(fid,'# Period(s) Code GG_Lat GG_Lon X(m) Y(m) Z(m) Component Real Imag Error \n');
         switch InvType
@@ -190,7 +190,7 @@ else
             end
         elseif InvType>=4 % we have tipper head to write.
             %=================write the file header (for tipper)===============%
-            fprintf(fid,'# %s ModEM INITIAL DATA WRITTEN BY EM3D @ %s\n',pname,date);
+            fprintf(fid,'# %s ModEM INITIAL DATA WRITTEN BY EM3DVP @ %s\n',pname,date);
             fprintf(fid,'# Period(s) Code GG_Lat GG_Lon X(m) Y(m) Z(m) Component Real Imag Error\n');
             fprintf(fid,'> Full_Vertical_Components\n'); %Tipper
             fprintf(fid,'> exp(+i\\omega t)\n');
