@@ -51,6 +51,9 @@ hZxyyx=uicontrol(hbgimpedance,'style','radiobutton','units','normalized','positi
 hTxTy=uicontrol(hbgimpedance,'style','radiobutton','units','normalized','position',...
     [0.05 0.1 0.6 0.25],'string','Tx & Ty','tag','plot Tx & Ty', ...
     'backgroundcolor',bcolor,'tooltipstring','plot Tx & Ty');
+hcboxphase=uicontrol(hbgimpedance,'style','checkbox','units','normalized','position',...
+    [0.55 0.7 0.45 0.25],'string','phase in one quadrant','tag','phase in one quadrant', ...
+    'backgroundcolor',bcolor,'tooltipstring','plot phase in one quadrant');
 
 % other buttons
 hpbprevious=uicontrol(hccmain,'style','pushbutton','units','normalized','position',...
@@ -72,7 +75,7 @@ htext=uicontrol(hccmain,'style','text','units','normalized','position',...
 % put all handles into a structure
 handle.axis=[haa,hab,hac];
 handle.buttons=[hpbprevious,hpbnext,hpbset_flist,hpbquit,hpbselect];
-handle.Zbox=[hZxxyy,hZxyyx,hTxTy];
+handle.Zbox=[hZxxyy,hZxyyx,hTxTy,hcboxphase];
 handle.editbox=[hmaskx,hmasky,hgmaskx,hgmasky,hgmaskall];
 handle.parent=handles;
 handle.text=htext;
@@ -96,11 +99,13 @@ set(hpbselect,'callback',{@select_site,handle});
 set(hZxxyy,'callback',{@plot_sounding,handle,'xxyy'});
 set(hZxyyx,'callback',{@plot_sounding,handle,'xyyx'});
 set(hTxTy,'callback',{@plot_sounding,handle,'txty'});
+set(hcboxphase,'callback',{@plot_sounding,handle,'xyyx'});
 
 % start ploting
 subplot_site(hObject,eventdata,handle.axis(3));
-plot_sounding(hObject,eventdata,handle,'xyyx');
 set(handle.Zbox,'value',0);
 set(handle.Zbox(2),'value',1);
+set(handle.Zbox(4),'value',1);
+plot_sounding(hObject,eventdata,handle,'xyyx');
 return
 

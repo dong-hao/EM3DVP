@@ -104,7 +104,9 @@ switch opt
         phsxy=phsxy*180/pi;
         phsyxe=phsyxe*180/pi;
         phsyx=phsyx*180/pi;
-        phsyx=phsyx+180;
+        if get(handle.Zbox(4),'value')==1
+            phsyx=phsyx+180;
+        end
         minrho=min(min(rhoxy),min(rhoyx));
         minrho=minrho/3;
         maxrho=max(max(rhoxy),max(rhoyx));
@@ -237,8 +239,13 @@ if strcmp(opt,'xxyy')
 elseif strcmp(opt,'xyyx')
     ylabel(handle.axis(1),'log_{10}apparent resistivity (\Omegam)')
     ylabel(handle.axis(2),'phase(degree)')
-    set(handle.axis(2),'yaxislocation','left','ylim',[0 90],'ytick',...
-    [0 15 30 45 60 75 90]);
+    if get(handle.Zbox(4),'value')==1
+        set(handle.axis(2),'yaxislocation','left','ylim',[0 90],'ytick',...
+        [0 15 30 45 60 75 90]);
+    else
+        set(handle.axis(2),'yaxislocation','left','ylim',[-180 180],'ytick',...
+        [-180 -135 -90 -45 0 45 90 135 180]);
+    end
     legend(handle.axis(1),'XY app. resistivity','YX app. resistivity',...
             'location','NorthWest')
     legend(handle.axis(2),'XY phase','YX phase',...

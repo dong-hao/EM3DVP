@@ -1,11 +1,11 @@
 function save_edi(hObject,eventdata,h)
 % modified form my old wsi2edi script
-% a script to convert Weerachai's data files to edi files (do not ask me 
+% a script to export MT transfer function to edi files (do not ask me 
 % why!) 
 %  
 % edis will be outputed as a 5-component MT site (Ex, Ey, Hx, Hy, Hz)
 %
-% version: 0.4a
+% version: 0.5a
 % author : DONG Hao
 global location sitename data custom nsite platform xyz model
 istr = inputdlg('select site to save(0 for all sites)','save as edi',1,{'1'});
@@ -13,7 +13,7 @@ if isempty(istr)
     disp('user canceled...')
     return
 end
-slist=str2num(istr{1});
+slist=str2num(istr{1}); %#ok<ST2NM>
 if max(slist)>nsite||min(slist)<0
     disp('site index exceed boundary')
     return
@@ -86,7 +86,7 @@ for isite=1:length(slist)
     fprintf(outid,'>HEAD\n');
     fprintf(outid,'DATAID="%s"\n',char(sitename{slist(isite)})); 
     fprintf(outid,'ACQBY="unknown"\n');
-    fprintf(outid,'FILEBY="wsi2edi/EM3D"\n');
+    fprintf(outid,'FILEBY="EM3DVP"\n');
     fprintf(outid,'ACQDATE=12/21/12\n');
     fprintf(outid,'FILEDATE=12/21/12\n');
     fprintf(outid,['PROSPECT= ' custom.projectname '\n']);
@@ -95,8 +95,8 @@ for isite=1:length(slist)
     fprintf(outid,'LONG=%3i:%02i:%06.4f\n',lonD,lonM,lonS);
     fprintf(outid,'ELEV=%i\n',elev);
     fprintf(outid,'STDVERS="SEG 1.0"\n');
-    fprintf(outid,'PROGVERS="wsi2edi 0.2"\n');
-    fprintf(outid,'PROGDATE=04/01/10\n');
+    fprintf(outid,'PROGVERS="EM3DVP 0.2"\n');
+    fprintf(outid,'PROGDATE=04/01/19\n');
     fprintf(outid,'MAXSECT=999\n');
     fprintf(outid,'EMPTY=1.0e+32\n\n');
     %===========output info==============%
@@ -148,11 +148,11 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,1));
     fprintf(outid,'\n');
     fprintf(outid,'>ZXXI ROT=ZROT //%i\n',nfreq);
-    fprintf(outid,'% e % e % e % e % e % e\n',-data(slist(isite)).tf(custom.flist,2));
+    fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,2));
     fprintf(outid,'\n');
     fprintf(outid,'>ZXX.VAR ROT=ZROT //%i\n',nfreq);
-    if get(h.data(7),'value')==1 %output given error floor
-        varxxyy=str2num(get(h.data(4),'string'))/100;
+    if custom.origin~=1 %output given error floor
+        varxxyy=custom.zxxzyye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
             sqrt((data(slist(isite)).tf(custom.flist,1)).^2+...
             (data(slist(isite)).tf(custom.flist,2)).^2)*varxxyy);
@@ -164,11 +164,11 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,4));
     fprintf(outid,'\n');
     fprintf(outid,'>ZXYI ROT=ZROT //%i\n',nfreq);
-    fprintf(outid,'% e % e % e % e % e % e\n',-data(slist(isite)).tf(custom.flist,5));
+    fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,5));
     fprintf(outid,'\n');
     fprintf(outid,'>ZXY.VAR ROT=ZROT //%i\n',nfreq);
-    if get(h.data(7),'value')==1 %output given error floor
-        varxyyx=str2num(get(h.data(5),'string'))/100;
+    if custom.origin~=1 %output given error floor
+        varxyyx=custom.zxyzyxe/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
             sqrt((data(slist(isite)).tf(custom.flist,4)).^2+...
             (data(slist(isite)).tf(custom.flist,5)).^2)*varxyyx);
@@ -180,11 +180,11 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,7));
     fprintf(outid,'\n');
     fprintf(outid,'>ZYXI ROT=ZROT //%i\n',nfreq);
-    fprintf(outid,'% e % e % e % e % e % e\n',-data(slist(isite)).tf(custom.flist,8));
+    fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,8));
     fprintf(outid,'\n');
     fprintf(outid,'>ZYX.VAR ROT=ZROT //%i\n',nfreq);
-    if get(h.data(7),'value')==1 %output given error floor
-        varxyyx=str2num(get(h.data(5),'string'))/100;
+    if custom.origin~=1 %output given error floor
+        varxyyx=custom.zxyzyxe/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
             sqrt((data(slist(isite)).tf(custom.flist,7)).^2+...
             (data(slist(isite)).tf(custom.flist,8)).^2)*varxyyx);
@@ -196,11 +196,11 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,10));
     fprintf(outid,'\n');
     fprintf(outid,'>ZYYI ROT=ZROT //%i\n',nfreq);
-    fprintf(outid,'% e % e % e % e % e % e\n',-data(slist(isite)).tf(custom.flist,11));
+    fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,11));
     fprintf(outid,'\n');
     fprintf(outid,'>ZYY.VAR ROT=ZROT //%i\n',nfreq);
-    if get(h.data(7),'value')==1 %output given error floor
-        varxxyy=str2num(get(h.data(4),'string'))/100;
+    if custom.origin~=1 %output given error floor
+        varxxyy=custom.zxxzyye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
             sqrt((data(slist(isite)).tf(custom.flist,10)).^2+...
             (data(slist(isite)).tf(custom.flist,11)).^2)*varxxyy);
@@ -222,8 +222,8 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,14));
     fprintf(outid,'\n');
     fprintf(outid,'>TXVAR.EXP  //%i\n',nfreq);
-    if get(h.data(7),'value')==1 %output given error floor
-        vartxty=str2num(get(h.data(6),'string'))/100;
+    if custom.origin~=1 %output given error floor
+        vartxty=custom.txtye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
             sqrt((data(slist(isite)).tf(custom.flist,13)).^2+...
             (data(slist(isite)).tf(custom.flist,14)).^2)*vartxty);
@@ -239,8 +239,8 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,17));
     fprintf(outid,'\n');
     fprintf(outid,'>TYVAR.EXP  //%i\n',nfreq);
-    if get(h.data(7),'value')==1 %output given error floor
-        vartxty=str2num(get(h.data(6),'string'))/100;
+    if custom.origin~=1 %output given error floor
+        vartxty=custom.txtye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
             sqrt((data(slist(isite)).tf(custom.flist,16)).^2+...
             (data(slist(isite)).tf(custom.flist,17)).^2)*vartxty);

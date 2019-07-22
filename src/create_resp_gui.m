@@ -11,16 +11,19 @@ hab=axes('units','normalized','position',[0.05 0.07 0.7 0.4],'tag','axisb');
 hac=axes('units','normalized','position',[0.8 0.65 0.18 0.3],'tag','axisc');
 custom.currentsite=1;
 
-%button group 'DISPLAY'
+%button group 'editboxLAY'
 hbgedit=uibuttongroup(hcrmain,'units','normalized','position',...
-    [0.78 0.35 0.2 0.15],'title','display','backgroundcolor',bcolor,...
+    [0.78 0.35 0.2 0.15],'title','editboxlay','backgroundcolor',bcolor,...
     'tag','','fontweight','bold');
 hcboxresp=uicontrol(hbgedit,'style','checkbox','units','normalized','position',...
-    [0.05 0.6 0.6 0.25],'string','display resp','tag','enable resp', ...
+    [0.05 0.6 0.45 0.25],'string','editboxlay resp','tag','enable resp', ...
     'backgroundcolor',bcolor,'tooltipstring','enable resp');
 hcboxerror=uicontrol(hbgedit,'style','checkbox','units','normalized','position',...
-    [0.05 0.2 0.6 0.25],'string','display errorbar','tag','enable errorbar', ...
+    [0.05 0.2 0.45 0.25],'string','editboxlay errorbar','tag','enable errorbar', ...
     'backgroundcolor',bcolor,'tooltipstring','enable errorbar');
+hcboxphase=uicontrol(hbgedit,'style','checkbox','units','normalized','position',...
+    [0.55 0.6 0.45 0.25],'string','phase in one quadrant','tag','phase in one quadrant', ...
+    'backgroundcolor',bcolor,'tooltipstring','plot phase in one quadrant');
 
 %button group 'IMPEDANCE'
 hbgimpedance=uibuttongroup(hcrmain,'units','normalized','position',...
@@ -68,7 +71,7 @@ htext=uicontrol(hcrmain,'style','text','units','normalized','position',...
 handle.axis=[haa,hab,hac];
 handle.buttons=[hpbprevious,hpbnext,hpbset_flist,hpbquit,hpbselect];
 handle.Zbox=[hZxxyy,hZxyyx,hTxTy];
-handle.editbox=[hcboxresp,hcboxerror];
+handle.editbox=[hcboxresp,hcboxerror,hcboxphase];
 handle.outputbox=[hpbsavecurrent,hpbsaveall];
 handle.parent=handles;
 handle.text=htext;
@@ -80,6 +83,7 @@ set(hpbquit,'callback',{@quit_this,hcrmain});
 set(hpbset_flist,'callback',{@view_flist,handle});
 set(hcboxresp,'callback',{@current_resp,handle});
 set(hcboxerror,'callback',{@current_resp,handle});
+set(hcboxphase,'callback',{@current_resp,handle});
 set(hpbprevious,'callback',{@previous_resp,handle});
 set(hpbselect,'callback',{@select_resp,handle});
 set(hpbsavecurrent,'callback',{@save_resp_pic,handle,'current'});
@@ -99,4 +103,3 @@ subplot_site(hObject,eventdata,handle.axis(3));
 plot_resp(hObject,eventdata,handle,'xyyx');
 set(handle.text,'string',sitename{custom.currentsite});
 return
-

@@ -122,7 +122,9 @@ switch opt
         phsxye=phsxye*180/pi; 
         phsyx=phsyx*180/pi;
         phsyxe=phsyxe.*180/pi; 
-        phsyx=phsyx+180;
+        if get(handle.editbox(3),'value')==1
+            phsyx=phsyx+180;
+        end
         rhoxy(xmask==0)=NaN;
         rhoyx(ymask==0)=NaN;
         phsxy(xmask==0)=NaN;
@@ -134,7 +136,9 @@ switch opt
         if flagresp==1
             phsrxy=phsrxy*180/pi;
             phsryx=phsryx*180/pi;
-            phsryx=phsryx+180;
+            if get(handle.editbox(3),'value')==1
+                phsryx=phsyx+180;
+            end
             rhorxy(xmask==0)=NaN;
             rhoryx(ymask==0)=NaN;
             phsrxy(xmask==0)=NaN;

@@ -108,10 +108,7 @@ while(~feof(fid_data))
             presname=sname;% remember the last station's name
             sitename{isite}=sname;
             if block==1
-                data(isite).nfreq_o=nfreq;
-                data(isite).freq_o=flist;
-                data(isite).tf_o=ones(nfreq,18);
-                data(isite).emap_o=zeros(nfreq,18);
+                data(isite)=gen_data(flist,20);
             end
             for ifreq=1:nfreq% now loop through periods
                 try
