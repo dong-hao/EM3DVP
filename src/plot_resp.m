@@ -137,7 +137,7 @@ switch opt
             phsrxy=phsrxy*180/pi;
             phsryx=phsryx*180/pi;
             if get(handle.editbox(3),'value')==1
-                phsryx=phsyx+180;
+                phsryx=phsryx+180;
             end
             rhorxy(xmask==0)=NaN;
             rhoryx(ymask==0)=NaN;
@@ -256,8 +256,13 @@ elseif strcmp(opt,'xyyx')
     ylabel(handle.axis(1),'apparent resistivity (\Omegam)')
     set(handle.axis(1),'yscale','log');
     ylabel(handle.axis(2),'phase(degree)')
-    set(handle.axis(2),'yaxislocation','left','ylim',[0 90],'ytick',...
-    [0 15 30 45 60 75 90]);
+    if get(handle.editbox(3),'value')==1
+        set(handle.axis(2),'yaxislocation','left','ylim',[0 90],'ytick',...
+        [0 15 30 45 60 75 90]);
+    else
+        set(handle.axis(2),'yaxislocation','left','ylim',[-180 180],'ytick',...
+        [-180 -135 -90 -45 0 45 90 135 180]);
+    end
 else
     ylabel(handle.axis(1),'apparent resistivity (\Omegam)')
     set(handle.axis(1),'yscale','log');
