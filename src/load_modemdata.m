@@ -35,7 +35,11 @@ pmin=custom.pmin;
 pmax=custom.pmax;
 ppd=custom.ppd;
 for i = 1: nsite
-    data(i).emap_o=generate_emap(data(i).tf_o);
+    if find(data(i).emap_o==0)
+        % do nothing
+    else
+       data(i).emap_o=generate_emap(data(i).tf_o);
+    end
     % load original data 
     % see if we want to use original data
     if custom.origin==1

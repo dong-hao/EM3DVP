@@ -68,7 +68,7 @@ for i=1:length(xm)
     for j=1:length(ym)
         % calculate the distance between the ground/seabed and the highest 
         % point of the model
-        topo=round((emax-eleint(i,j))/10)*10;
+        topo=round((emax-eleint(i,j))/100)*100;
         idx=find(depth>=topo,1)-1;
         if isempty(idx)
             idx=length(depth)-1;

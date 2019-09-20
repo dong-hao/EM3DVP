@@ -14,15 +14,18 @@ fid_data = fopen ([fdir,fname],'r');
 NL = 0;
 while(~feof(fid_data))
     line=fgetl(fid_data);
-    NL = NL+1;
-    if NL == 8 
+    if strfind(line,'> ')
+        NL = NL+1;
+    end
+    if NL == 6 
         tmp=sscanf(line,'%*s %i %i');
         nfreq=tmp(1);
         nsite=tmp(2);
         flist=zeros(nfreq,1);
         ifreq=0;
         disp(['start searching for ', num2str(nfreq), ' frequncies'])
-    elseif NL > 8
+        NL = NL + 1;
+    elseif NL > 6
         newfreq=1/sscanf(line,'%f %*s %*f %*f %*f %*f %*f %*f %*f %*f %*f',1);
         iprev = find(abs(flist./newfreq-1)<0.01,1); %check if we have see this before
         if isempty(iprev) % we have not encounter this frequency before

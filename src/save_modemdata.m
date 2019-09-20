@@ -28,7 +28,7 @@ else
             model.rho = rho;
             model.fix = fix;
             %sweepstn(elev,xyz,model.x,model.y,model.z,model.rho,model.fix);
-            elev=elev+custom.zero(3);
+            % elev=elev+custom.zero(3);
         end
     else
         % we are probably not running a inversion with topography
