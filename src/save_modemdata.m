@@ -29,7 +29,7 @@ else
             model.fix = fix;
             %sweepstn(elev,xyz,model.x,model.y,model.z,model.rho,model.fix);
             % elev=elev+custom.zero(3);
-            custom.zero(3)=0;
+            custom.zero(3) = 0; 
         end
     else
         % we are probably not running a inversion with topography
@@ -39,17 +39,18 @@ else
         'Save ModEM data file', [pname '.dat']);
     if isequal(datafile,0) || isequal(datapath,0)
         disp('user canceled...');
+        return
     else
-        % try to calculate std error from the default variance of impedance
+        % filling the standard deviation matrix
         stderr=ones(Nsite,nfreq,6);
         for isite=1:Nsite
             for ifreq=1:nfreq
-                stderr(isite,ifreq,1)=data(isite).tf(ftable(ifreq),3).^0.5;
-                stderr(isite,ifreq,2)=data(isite).tf(ftable(ifreq),6).^0.5;
-                stderr(isite,ifreq,3)=data(isite).tf(ftable(ifreq),9).^0.5;
-                stderr(isite,ifreq,4)=data(isite).tf(ftable(ifreq),12).^0.5;
-                stderr(isite,ifreq,5)=data(isite).tf(ftable(ifreq),15).^0.5;
-                stderr(isite,ifreq,6)=data(isite).tf(ftable(ifreq),18).^0.5;
+                stderr(isite,ifreq,1)=data(isite).tf(ftable(ifreq),3);
+                stderr(isite,ifreq,2)=data(isite).tf(ftable(ifreq),6);
+                stderr(isite,ifreq,3)=data(isite).tf(ftable(ifreq),9);
+                stderr(isite,ifreq,4)=data(isite).tf(ftable(ifreq),12);
+                stderr(isite,ifreq,5)=data(isite).tf(ftable(ifreq),15);
+                stderr(isite,ifreq,6)=data(isite).tf(ftable(ifreq),18);
             end
         end
         errmat=stderr;
@@ -65,7 +66,7 @@ else
                     %    (data(isite).tf(ifreq,7))^2+(data(isite).tf(ifreq,8))^2);
                     zvar1=sqrt((data(isite).tf(ifreq,4))^2+(data(isite).tf(ifreq,5))^2);
                     zvar2=sqrt((data(isite).tf(ifreq,7))^2+(data(isite).tf(ifreq,8))^2);
-                    tvar=1; % now use an absolute value as error for T
+                    tvar=1; % note that we use an absolute value as error for T
                     % tvar=sqrt((data(isite).tf(ifreq,13))^2+(data(isite).t
                     % f(ifreq,14))^2);
                     if zvar1*varxxyy>stderr(isite,ifreq,1)

@@ -111,7 +111,7 @@ while(~feof(fid_data))
             presname=sname;% remember the last station's name
             sitename{isite}=sname;
             if block==1
-                data(isite)=gen_data(flist,20);
+                data(isite)=gen_data(flist,5);
             end
             for ifreq=1:nfreq% now loop through periods
                 try
@@ -169,7 +169,7 @@ while(~feof(fid_data))
                     else
                         data(isite).tf_o(iprev,iresp*3+1)=num(1)*zmul;
                         data(isite).tf_o(iprev,iresp*3+2)=num(2)*zmul*signs;
-                        data(isite).tf_o(iprev,iresp*3+3)=num(3)*zmul;
+                        data(isite).tf_o(iprev,iresp*3+3)=num(3)*zmul; 
                         if num(3)<1e+5
                             data(isite).emap_o(iprev,iresp*3+3)=1;
                         end

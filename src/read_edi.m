@@ -1,4 +1,4 @@
-function [data,location,sitename]=read_edi(name,unit,signs)
+function [data,location,sitename]=read_edi(name,unit,signs,etype)
 % read edi from given "name" and import the site to the "n"th data struct.
 % the variances are multiplied by "Xerror" to improve the convergence in
 % WSINV3DMT inversion
@@ -10,13 +10,17 @@ function [data,location,sitename]=read_edi(name,unit,signs)
 % NOTE: THE VARIANCE OF DATA HAS TO BE CONVERTED TO STD TO BE USED IN MODEM
 % ========================================================================%
 global custom default
-if nargin == 1
+if nargin < 1
+    error('not enough input arguments, please provide the filename to read.')
+elseif nargin < 2 
     signs=1;
     unit='mV/km/nT';
-elseif nargin == 2
+    etype = 'var';
+elseif nargin < 3
     signs=1;
-elseif nargin < 1
-    error('not enough input arguments, please provide the filename to read.')
+    etype = 'var';
+elseif nargin < 4
+    etype = 'var';
 end
 switch unit
     case 'mV/km/nT'
@@ -31,6 +35,7 @@ fid=fopen(name,'r');
 disp(['Reading ',name]);
 data=gen_data;
 location=zeros(1,3);
+errtype = etype; 
 for i=1:10000
     if ~feof(fid)
         line=fgetl(fid);
@@ -277,7 +282,7 @@ end
 % try to delete poor data (error bigger than data magnitude)
 fclose(fid);
 data.emap_o=ones(size(data.tf_o));
-switch order
+switch upper(order)
     case 'DEC' % high -> low freq, default
         % do nothing
         if data.freq_o(2)>data.freq_o(1)
@@ -290,6 +295,16 @@ switch order
         % try to change the order of the data
         data.freq_o=flipud(data.freq_o);
         data.tf_o=flipud(data.tf_o);
+end
+switch upper(errtype)
+    case 'VAR'
+        disp('converting variances to stds...')
+        data.tf_o(:,[3 6 9 12 15 18]) = sqrt(data.tf_o(:,[3 6 9 12 15 18]));
+    case 'STD'
+        disp('using Standard deviation for errors...')
+        % do nothing
+    otherwise
+        error('errtype not recognized, please check the read_edi options')
 end
 if custom.origin~=1
     return

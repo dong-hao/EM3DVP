@@ -88,7 +88,7 @@ switch opt
         %==========now start ploting============%
         if flagerrorbar~=0            
             errorbar(handle.axis(1),freq,rhoxx,rhoxxe,'r^');
-            errorbar(handle.axis(2),freq,phsxx,phsxxe/5,'r^');
+            errorbar(handle.axis(2),freq,phsxx,phsxxe,'r^');
         else
             plot(handle.axis(1),freq,rhoxx,'r^');
             plot(handle.axis(2),freq,phsxx,'r^');
@@ -97,7 +97,7 @@ switch opt
         hold(handle.axis(2),'on');
         if flagerrorbar~=0
             errorbar(handle.axis(1),freq,rhoyy,rhoyye,'bo');
-            errorbar(handle.axis(2),freq,phsyy,phsyye/5,'bo');
+            errorbar(handle.axis(2),freq,phsyy,phsyye,'bo');
         else
             plot(handle.axis(1),freq,rhoyy,'bo');
             plot(handle.axis(2),freq,phsyy,'bo');
@@ -154,7 +154,7 @@ switch opt
         %==========now start ploting============%
         if flagerrorbar~=0
             errorbar(handle.axis(1),freq,rhoxy,rhoxye,'r^');
-            errorbar(handle.axis(2),freq,phsxy,phsxye/5,'r^');
+            errorbar(handle.axis(2),freq,phsxy,phsxye,'r^');
         else
             plot(handle.axis(1),freq,rhoxy,'r^');
             plot(handle.axis(2),freq,phsxy,'r^');
@@ -163,7 +163,7 @@ switch opt
         hold(handle.axis(2),'on');
         if flagerrorbar~=0
             errorbar(handle.axis(1),freq,rhoyx,rhoyxe,'bo');
-            errorbar(handle.axis(2),freq,phsyx,phsyxe/5,'bo');
+            errorbar(handle.axis(2),freq,phsyx,phsyxe,'bo');
         else
             plot(handle.axis(1),freq,rhoyx,'bo');
             plot(handle.axis(2),freq,phsyx,'bo');
