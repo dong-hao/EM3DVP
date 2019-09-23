@@ -14,8 +14,8 @@ git clone https://github.com/dong-hao/EM3DVP/ your_local_folder
 
 ## UNITS
 currently the internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B. 
-To convert to Ohm (used by Weerachai's code) one need to multiply the values by ~796. 
-To convert to V/m/T (used by ModEM) one need to multiply the values by 0.001 
+To convert to Ohm (used by Weerachai's code) one needs to multiply the values by ~796. 
+To convert to V/m/T (used by ModEM) one needs to multiply the values by 0.001 
 
 ## SIGN      
 currently the internal time harmonic sign convention is plus (+), or exp(i\omega t). Be careful when you need to deal with data with (-) convention. 
@@ -28,6 +28,8 @@ I decided to use a new system of version as the package name keeps going longer.
 
 ## Release History
 
+* 0.0.2 
+    * some minor modifications mostly for dealing with poorly formatted data and model files 
 * 0.0.1
     * initial implement
 
