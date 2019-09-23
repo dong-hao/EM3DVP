@@ -5,7 +5,7 @@ EM3DVP is a package of Matlab scripts. The primary goal is to provide the users 
 
 ## something like a disclaimer
 
-I wrote the package just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't expect that I will reply quickly!).  
+I wrote the package just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't you expect that I will reply quickly!).  
 
 ## HOW TO GET IT
 ```
@@ -21,13 +21,21 @@ To convert to V/m/T (used by ModEM) one needs to multiply the values by 0.001
 currently the internal time harmonic sign convention is plus (+), or exp(i\omega t). Be careful when you need to deal with data with (-) convention. 
 
 ## ERRORS    
-currently the internal error here is standard deviation, it worths noting that most of the survey file formats use variance. 
+currently the internal error here is standard deviation, it worths noting that most of the survey file formats use variance.
+WARNING: I haven't touched that part for WSINV3D format, there must be some potential bugs lurking somewhere. 
+
+## HOW TO GET UPDATED
+```
+cd to_you_local_folder
+git pull 
+```
 
 ## MISC NOTES      
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
 
 ## Release History
-
+* 0.0.3 
+    * fixed an old (and purely cosmetic) bug in displaying the errorbar for impedance phases. This was not of importance as it did not affect the actual errorbar in the outputed data. 
 * 0.0.2 
     * some minor modifications mostly for dealing with poorly formatted data and model files 
 * 0.0.1
@@ -45,13 +53,13 @@ Distributed under the GPL v3 license. See ``LICENSE`` for more information.
 
 ## Contributing
 
-Those who are willing to contribute are welcomed to try - but I probably won't have the time to review the commits frequently (not that I would expect there will be many, also). 
+Those who are willing to contribute are welcomed to try - but I probably won't have the time to review the commits frequently (not that I would expect there will be any). 
 
 1. Fork it (<https://github.com/dong-hao/EM3DVP/fork>)
 2. Create your feature branch (`git checkout -b feature/somename`)
-3. Commit your changes (`git commit -am 'Add some name'`)
+3. Commit your changes (`git commit -am 'Add some features'`)
 4. Push to the branch (`git push origin feature/somename`)
-5. Create a new Pull Request
+5. Create a new Pull Request and go through 1-4 again
 
 ## Commercial Usage
 
