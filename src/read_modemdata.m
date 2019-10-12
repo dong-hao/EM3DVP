@@ -170,9 +170,9 @@ while(~feof(fid_data))
                         data(isite).tf_o(iprev,iresp*3+1)=num(1)*zmul;
                         data(isite).tf_o(iprev,iresp*3+2)=num(2)*zmul*signs;
                         data(isite).tf_o(iprev,iresp*3+3)=num(3)*zmul; 
-                        if num(3)<1e+5
+%                         if num(3)<1e+5
                             data(isite).emap_o(iprev,iresp*3+3)=1;
-                        end
+%                         end
                         line=fgetl(fid_data);
                     end
                 end

@@ -19,10 +19,10 @@ data.emap_o=zeros(data.nfreq_o,18);
 rho=100; % that is rho generated
 
 for i=1:data.nfreq_o
-    data.tf_o(i,[1 4])=sqrt(rho*5.*data.freq_o(i)/2);
-    data.tf_o(i,[7 11])=-sqrt(rho*5.*data.freq_o(i)/2);
-    data.tf_o(i,[2 5])=sqrt(rho*5.*data.freq_o(i)/2);
-    data.tf_o(i,[8 10])=-sqrt(rho*5.*data.freq_o(i)/2);
+    data.tf_o(i,[4, 5])=sqrt(rho*5.*data.freq_o(i)/2);
+    data.tf_o(i,[7, 8])=-sqrt(rho*5.*data.freq_o(i)/2);
+    data.tf_o(i,[1, 2])=sqrt(rho*5.*data.freq_o(i)/2)/1000;
+    data.tf_o(i,[10,11])=-sqrt(rho*5.*data.freq_o(i)/2)/1000;
     data.tf_o(i,[3 6 9 12])=data.tf_o(i,1)*ebar;
     data.tf_o(:,13:14)=0;
     data.tf_o(:,16:17)=0;

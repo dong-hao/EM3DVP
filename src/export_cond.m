@@ -12,8 +12,8 @@ cond=calc_cond(rho,z,upper,lower);
 % depth=(25)*1000;
 % ffrac=(cond/depth/C/cf).^(1/n)*100;
 figure;
-pcolor(log10(cond));
-caxis([1.5 4.5]);
+pcolor(cond);
+caxis([0 15000]);
 colormap(jet(16));
 shading flat
 Nx=length(model.x)-1;

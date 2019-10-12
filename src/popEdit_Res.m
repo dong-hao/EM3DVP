@@ -29,7 +29,9 @@ switch todo
     case 13
         set_rho_1d_aver(hObject,eventdata,h) 
     case 14
-        set_anis_area(hObject,eventdata,h)          
+        set_anis_area(hObject,eventdata,h)    
+    case 15 
+        set_res_boundary(hObject,eventdata,h)
 end
 set(h.edit(4),'value',1);
 return

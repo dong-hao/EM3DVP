@@ -151,13 +151,15 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,2));
     fprintf(outid,'\n');
     fprintf(outid,'>ZXX.VAR ROT=ZROT //%i\n',nfreq);
+    % note that we need to convert std back to var
     if custom.origin~=1 %output given error floor
         varxxyy=custom.zxxzyye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
-            sqrt((data(slist(isite)).tf(custom.flist,1)).^2+...
-            (data(slist(isite)).tf(custom.flist,2)).^2)*varxxyy);
-    else
-        fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,3));
+            ((data(slist(isite)).tf(custom.flist,1)).^2+...
+            (data(slist(isite)).tf(custom.flist,2)).^2)*varxxyy*varxxyy);
+    else 
+        fprintf(outid,'% e % e % e % e % e % e\n',...
+            data(slist(isite)).tf(custom.flist,3).^2);
     end
     fprintf(outid,'\n');
     fprintf(outid,'>ZXYR ROT=ZROT //%i\n',nfreq);
@@ -170,10 +172,11 @@ for isite=1:length(slist)
     if custom.origin~=1 %output given error floor
         varxyyx=custom.zxyzyxe/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
-            sqrt((data(slist(isite)).tf(custom.flist,4)).^2+...
-            (data(slist(isite)).tf(custom.flist,5)).^2)*varxyyx);
-    else
-        fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,6));
+            ((data(slist(isite)).tf(custom.flist,4)).^2+...
+            (data(slist(isite)).tf(custom.flist,5)).^2)*varxyyx*varxyyx);
+    else 
+        fprintf(outid,'% e % e % e % e % e % e\n',...
+            data(slist(isite)).tf(custom.flist,6).^2);
     end
     fprintf(outid,'\n');
     fprintf(outid,'>ZYXR ROT=ZROT //%i\n',nfreq);
@@ -183,13 +186,15 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,8));
     fprintf(outid,'\n');
     fprintf(outid,'>ZYX.VAR ROT=ZROT //%i\n',nfreq);
+    % note that we need to convert std back to var
     if custom.origin~=1 %output given error floor
         varxyyx=custom.zxyzyxe/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
-            sqrt((data(slist(isite)).tf(custom.flist,7)).^2+...
-            (data(slist(isite)).tf(custom.flist,8)).^2)*varxyyx);
-    else
-        fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,9));
+            ((data(slist(isite)).tf(custom.flist,7)).^2+...
+            (data(slist(isite)).tf(custom.flist,8)).^2)*varxyyx*varxyyx);
+    else 
+        fprintf(outid,'% e % e % e % e % e % e\n',...
+            data(slist(isite)).tf(custom.flist,9).^2);
     end
     fprintf(outid,'\n');
     fprintf(outid,'>ZYYR ROT=ZROT //%i\n',nfreq);
@@ -202,10 +207,11 @@ for isite=1:length(slist)
     if custom.origin~=1 %output given error floor
         varxxyy=custom.zxxzyye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
-            sqrt((data(slist(isite)).tf(custom.flist,10)).^2+...
-            (data(slist(isite)).tf(custom.flist,11)).^2)*varxxyy);
+            ((data(slist(isite)).tf(custom.flist,10)).^2+...
+            (data(slist(isite)).tf(custom.flist,11)).^2)*varxxyy*varxxyy);
     else
-        fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,12));
+        fprintf(outid,'% e % e % e % e % e % e\n',...
+            data(slist(isite)).tf(custom.flist,12).^2);
     end
     fprintf(outid,'\n');       
     %===========output tippers==============%    
@@ -222,13 +228,15 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,14));
     fprintf(outid,'\n');
     fprintf(outid,'>TXVAR.EXP  //%i\n',nfreq);
+    % note that we need to convert std back to var
     if custom.origin~=1 %output given error floor
         vartxty=custom.txtye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
-            sqrt((data(slist(isite)).tf(custom.flist,13)).^2+...
-            (data(slist(isite)).tf(custom.flist,14)).^2)*vartxty);
+            ((data(slist(isite)).tf(custom.flist,13)).^2+...
+            (data(slist(isite)).tf(custom.flist,14)).^2)*vartxty*vartxty);
     else
-        fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,15));
+        fprintf(outid,'% e % e % e % e % e % e\n',...
+            data(slist(isite)).tf(custom.flist,15).^2);
     end
     fprintf(outid,'\n');
     %===========output ty==============%  
@@ -239,13 +247,15 @@ for isite=1:length(slist)
     fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,17));
     fprintf(outid,'\n');
     fprintf(outid,'>TYVAR.EXP  //%i\n',nfreq);
+    % note that we need to convert std back to var
     if custom.origin~=1 %output given error floor
         vartxty=custom.txtye/100;
         fprintf(outid,'% e % e % e % e % e % e\n',...
-            sqrt((data(slist(isite)).tf(custom.flist,16)).^2+...
-            (data(slist(isite)).tf(custom.flist,17)).^2)*vartxty);
+            ((data(slist(isite)).tf(custom.flist,16)).^2+...
+            (data(slist(isite)).tf(custom.flist,17)).^2)*vartxty*vartxty);
     else
-        fprintf(outid,'% e % e % e % e % e % e\n',data(slist(isite)).tf(custom.flist,18));
+        fprintf(outid,'% e % e % e % e % e % e\n',...
+            data(slist(isite)).tf(custom.flist,18).^2);
     end
     fprintf(outid,'\n');    
     fprintf(outid,'>END');  

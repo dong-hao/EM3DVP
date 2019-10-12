@@ -32,14 +32,14 @@ model.rho(:)=100;
 model.rho(end,end,end)=101;
 cfilename=[cpath,cfile];
 data=load(cfilename); %load the xyzfile of bathymetry
-east = data(:,2);% for dsm2 +8000;
-nort = data(:,1);
+east = data(:,1);% for dsm2 +8000;
+nort = data(:,2);
 elev = data(:,3);
 % now convert the geological coordinate back into cartesian 
 lonR=custom.lonR;
 centre=custom.centre;
 [y0,x0]=deg2utm(centre(1),centre(2),lonR);
-[y,x]=deg2utm(east,nort,lonR);
+[y,x]=deg2utm(nort,east,lonR);
 y=y-y0;
 x=x-x0;
 xm=zeros(length(model.x)-1,1); % N-S

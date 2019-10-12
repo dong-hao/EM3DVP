@@ -35,7 +35,6 @@ else
 	data=fix_var(data,nsite,nlevel);
 end
 for i = 1: nsite
-    data(i).emap_o=generate_emap(data(i).tf_o);
     % load original data 
     data(i).nfreq=data(i).nfreq_o;
     data(i).freq=data(i).freq_o;
