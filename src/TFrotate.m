@@ -42,7 +42,7 @@ if size(Z,2)==18
     Zr(:,15)=Z(:,15)*cos(alpha)-Z(:,18)*sin(alpha);
     Zr(:,16)=Z(:,16)*cos(alpha)+Z(:,13)*sin(alpha);
     Zr(:,17)=Z(:,17)*cos(alpha)+Z(:,14)*sin(alpha);
-    Zr(:,18)=Z(:,18)*cos(alpha)-Z(:,15)*sin(alpha);
+    Zr(:,18)=Z(:,18)*cos(alpha)+Z(:,15)*sin(alpha);
 else
     return
 end
