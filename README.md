@@ -1,11 +1,11 @@
 # EM3DVP: 
 > a Visual Package for 3D Geo-Electromagnetic modeling and inversion 
 
-EM3DVP is a package of Matlab scripts. The primary goal is to provide the users of EM methods an easy-to-use and (hopefully) comprehensive GUI to prepare the input model, data and parameter files for the 3D inversion codes, as well as an interface to plot the result models and responses. Note that this apparently works only for structured mesh. 
+EM3DVP is a package of Matlab scripts. Its primary goal is to provide the users of EM methods an easy-to-use and (hopefully) comprehensive GUI to prepare the input model, data and parameter files for the 3D inversion codes, as well as an interface to plot the result models and responses. Note that this apparently works only for structured mesh. 
 
 ## something like a disclaimer
 
-I wrote the package just for the convenience of myself and people in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't you expect that I will reply quickly!).  
+I wrote the package just for the convenience of myself and my colleagues/students in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't you expect that I will reply quickly!).  
 
 ## HOW TO GET IT
 ```
@@ -13,15 +13,15 @@ git clone https://github.com/dong-hao/EM3DVP/ your_local_folder
 ```
 
 ## UNITS
-currently the internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B. 
+The internal unit here is the 'practical' one, as used in most survey files (mV/km/nT) for E/B. 
 To convert to Ohm (used by Weerachai's code) one needs to multiply the values by ~796. 
 To convert to V/m/T (used by ModEM) one needs to multiply the values by 0.001 
 
 ## SIGN      
-currently the internal time harmonic sign convention is plus (+), or exp(i\omega t). Be careful when you need to deal with data with (-) convention. 
+The internal time harmonic sign convention is plus (+), or exp(i\omega t). Be careful when you need to deal with data with (-) convention. 
 
 ## ERRORS    
-currently the internal error here is standard deviation, it worths noting that most of the survey file formats use variance.
+Currently the internal error here is standard deviation, it worths noting that most of the survey file formats use variance (this code used variances as well before 2017). 
 WARNING: I haven't touched that part for WSINV3D format, there must be some potential bugs lurking somewhere. 
 
 ## HOW TO GET UPDATED
@@ -35,9 +35,9 @@ I decided to use a new system of version as the package name keeps going longer.
 
 ## Release History
 * 0.0.4
-    * added a couple of features - adding the function to build a tear layer with a boundary file; adding the option to export the induction vector information to be plotted with third party programes (e.g. GMT); the program now display the RMS in a different mannor - the RMS for tipper and impedance are now displayed in separate values. 
+    * bug fixes and a couple of features - adding the function to build a tear layer with a boundary file; adding the option to export the induction vector information to be plotted with third party programes (e.g. GMT); the program now display the RMS in a different manner - the RMSs for tipper and impedance are now displayed in separate values. 
 * 0.0.3 
-    * fixed an old (and purely cosmetic) bug in displaying the errorbar for impedance phases. This was not of importance as it did not affect the actual errorbar in the outputed data. 
+    * fixed an old (and purely cosmetic) bug in displaying the errorbar for impedance phases. This was not of importance as it did not affect the actual errorbar in the outputted data. 
 * 0.0.2 
     * some minor modifications mostly for dealing with poorly formatted data and model files 
 * 0.0.1
@@ -72,7 +72,7 @@ Commercial usage is not forbidden by the license - but you are recommended to co
 ###  a. prerequisite 
 Modelling: You can begin your modelling from (literally) scratch with EM3DVP. However, if you plan to include topography/bathymetry in your model, you will need digital elevation data in .xyz format (lon lat elev) for EM3DVP to read. If you have designed your site distribution in other software, you will also have to convert them into xyz format (Northing Easting Elevation). Pre-existed ModEM/WSINV3D/WinGlink Models can be imported.
 
-inversion: you will need your MT field data files (.EDI files) as well as the digital elevation file or model files, as descripted in modelling part.
+inversion: you will need your MT field data files (.EDI files) as well as the digital elevation file or model files, as described in modelling part.
 
 ###  b. prepare input files for forward/inversion
 load data: click the "Load EDIs" button on the "model creating interface" to load EDI files in a GUI file manager. Alternately, you can click the "IMPORT" pop-up menu to import ModEM or WSINV3D data. Once you loaded the data, the sites will be automatically projected from Geological coordinates using UTM projection. A default model will also be automatically generated for the sites. 
@@ -86,7 +86,7 @@ data selection: you can select data responses used in forward/inversion in "data
 error setting: you can manually set data error with the "fixed" radio button in "data error" box. Given error will be used for diagonal, off-diagonal impedances and tipper respectively. If "from data" is selected, original data error will be used.
 
 in "model generation" interface
-model parameter: you can manually set the model mesh parameters in "model generation" interface X,Y,Z are the Northing, Easting and Vertical coordinates respectively. By hitting "generate", a new homogeneous half space model will be generated using the following parameters, as descripted below. x block width: width of the x blocks within the core area. x outcore blocks: number of x blocks out of the core area. x outcore step: increasing step for x blocks out of the core. y block width: width of the y blocks within the core area. y outcore blocks: number of y blocks out of the core area. y outcore step: increasing step for y blocks out of the core. y block width: width of the y blocks within the core area. y outcore blocks: number of y blocks out of the core area. y outcore step: increasing step for y blocks out of the core.  z first thickness: thickness of the first z layer. z incore step: increasing step for z layers within the core. z incore layers: number of z layers within the core area. z outcore step: increasing step for z layers out of the core. z outcore layers: number of z layers out of the core area. background res.: default resistivity of the generated model. 
+model parameter: you can manually set the model mesh parameters in "model generation" interface X,Y,Z are the Northing, Easting and Vertical coordinates respectively. By hitting "generate", a new homogeneous half space model will be generated using the following parameters, as described below. x block width: width of the x blocks within the core area. x outcore blocks: number of x blocks out of the core area. x outcore step: increasing step for x blocks out of the core. y block width: width of the y blocks within the core area. y outcore blocks: number of y blocks out of the core area. y outcore step: increasing step for y blocks out of the core. y block width: width of the y blocks within the core area. y outcore blocks: number of y blocks out of the core area. y outcore step: increasing step for y blocks out of the core.  z first thickness: thickness of the first z layer. z incore step: increasing step for z layers within the core. z incore layers: number of z layers within the core area. z outcore step: increasing step for z layers out of the core. z outcore layers: number of z layers out of the core area. background res.: default resistivity of the generated model. 
 
 model display: you can plot the 3d model slices in X, Y or Z plane by selection in the "view option" box. By clicking the "Prev. slice" or "Next slice" button, you can browse through the model slice by slice. The current slice location is displayed on the top of the model plot. Some brief information of the model and data is displayed at the bottom-right corner of the interface. model editing: you can manually edit the model mesh and the model resistivity by enabling the "model editing" box. use the "edit column", "edit row" and "edit layer" pop-up menus to edit the different direction of meshes. use the "Edit resist." pop-up menu to edit the resistivity of the model. 
 
@@ -95,7 +95,9 @@ Bathymetry or topography can also be automatically added to the model by using t
 data editing: you can display the data curve and mask data (site-wise) by clicking the "Curve edit" button and calling the Curve Editor interface. save input files: you can export the input files needed for WSINV3D or ModEM from the "EXPORT" pop-up menu. 
    
 ###  c. run the forward/inversion 
- ...refer to your EM code guide lines...
+Please note that even though we have a "run" button on the main menu, the forward/inversion code is not provided with this package. You will have to provide the right executables/codes to run with it. It is not really a recommended way to run the inversions either, saves the purely demonstrational purposes. 
+
+...just refer to your EM code guide lines for specific commands... 
  
 ###  d. display the inversion results
 load the output files: Click "Load Model" in the "plot results and models" interface. You will be prompted to select the preferred inversion model and input data in a GUI interface. Once the model and data are loaded, three plots will be generated to display the X (N-S), Y (E-W) and Z (Horizontal) slices respectively. You can change the aspect of 2D or 3D in the "aspect" box. You can also clicking your way through different slices by choosing one of the three planes in "selection" box and hitting the "Previous" or "Next" button. By ticking the "show profile area only" box, you can limit the plots within the region with sites. colour map and shading: you can select your preferred colour map and colour shading (interpolated or not) with the "colormap" and "shading" pop-up menu. 
@@ -114,5 +116,3 @@ A: As Weerachai never explicitly defined the "zero point" of the model space, so
 Q: What the hell are the numbers in the input slots below the "set boundary" tick, in "settings" box, "plot results and models" interface?
 
 A: The three numbers are the number of meshes NOT TO display on each side of the model. For example, 6 in the first slot means the most north 6 meshes and the most south 6 meshes will not be displayed in the plot (so that we can concentrate in our study area). Likewise, the 8 in the third slot means the deepest 8 meshes will not be displayed in the plot (so that we can concentrate in the shallow part)
-
-
