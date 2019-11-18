@@ -34,6 +34,8 @@ git pull
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
 
 ## Release History
+* 0.0.4
+    * added a couple of features - adding the function to build a tear layer with a boundary file; adding the option to export the induction vector information to be plotted with third party programes (e.g. GMT); the program now display the RMS in a different mannor - the RMS for tipper and impedance are now displayed in separate values. 
 * 0.0.3 
     * fixed an old (and purely cosmetic) bug in displaying the errorbar for impedance phases. This was not of importance as it did not affect the actual errorbar in the outputed data. 
 * 0.0.2 
