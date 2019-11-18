@@ -9,19 +9,19 @@ fix = menu('please select','lock air','lock sea','unlock air/sea','cancel');
 switch fix
     case 1
         seq= model.rho>=custom.air;
-        model.fix(seq)=1;
-        model.fix(end,end,end)=0;
+        model.fix(seq)=0;
+        model.fix(end,end,end)=1;
     case 2
         seq= model.rho==custom.sea;
         model.fix(seq)=9;
-        model.fix(end,end,end)=0;
+        model.fix(end,end,end)=1;
     case 3
 %        seq= model.rho==200;
         seq= model.rho>=custom.air;
-        model.fix(seq)=0;
+        model.fix(seq)=1;
         seq= model.rho==custom.sea;
-        model.fix(seq)=0;
-        model.fix(end,end,end)=1;  
+        model.fix(seq)=1;
+        model.fix(end,end,end)=2;  
     case 4
         return
 end

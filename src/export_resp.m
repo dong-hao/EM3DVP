@@ -59,36 +59,42 @@ for isite=1:nsite
             Va2=(rxxr.^2+rxxi.^2)*per/5;
             Vb2=atan2(rxxi,rxxr)*180/pi;
             idx=3;
+            tex = 'xx';
         case 2 %yy
             Va1=(zyyr.^2+zyyi.^2)*per/5;
             Vb1=atan2(zyyi,zyyr)*180/pi;
             Va2=(ryyr.^2+ryyi.^2)*per/5;
             Vb2=atan2(ryyi,ryyr)*180/pi;
             idx=12;
+            tex = 'yy';
         case 3 %xy
             Va1=(zxyr.^2+zxyi.^2)*per/5;
             Vb1=atan2(zxyi,zxyr)*180/pi;
             Va2=(rxyr.^2+rxyi.^2)*per/5;
             Vb2=atan2(rxyi,rxyr)*180/pi;
             idx=6;
+            tex = 'xy';
         case 4 %yx
             Va1=(zyxr.^2+zyxi.^2)*per/5;
             Vb1=atan2(zyxi,zyxr)*180/pi+180;
             Va2=(ryxr.^2+ryxi.^2)*per/5;
             Vb2=atan2(ryxi,ryxr)*180/pi+180;
             idx=9;
+            tex = 'yx';
         case 5 %tx
             Va1=txr;
             Vb1=txi;
             Va2=rtxr;
             Vb2=rtxi;
             idx=15;
+            tex = 'tx';
         case 6 %ty
             Va1=tyr;
             Vb1=tyi;
             Va2=rtyr;
             Vb2=rtyi;            
             idx=18;
+            tex = 'ty';
         otherwise
             errormsg=['specified mode ' num2str(opt) ' cannot be recognized...'];
             errordlg(errormsg,'Mode error');
@@ -115,7 +121,7 @@ xyvm(:,1)=lonm;
 xyvm(:,2)=latm;
 xyvm(:,3:8)=xyv(:,3:8);
 xyvpath=pwd;
-xyvfile=[filename,'.xyv'];
+xyvfile=[tex, '-', filename,'.xyv'];
 if isequal(xyvfile,0) || isequal(xyvpath,0)
     disp('user canceled...');
 else

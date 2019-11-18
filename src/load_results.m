@@ -1,4 +1,5 @@
 function load_results(hObject,eventdata,handles)
+% a driver function to 
 % load model and data from Weerachai's WSINV3D invertion files
 % or Gary's ModEM inversion files
 global model nsite xyz data resp sitename location
@@ -90,8 +91,10 @@ set(handles.rholim,'enable','on')
 set(handles.viewbox,'enable','on')
 set(handles.setbox,'enable','on')
 set(handles.buttons,'enable','on')
-rms=calc_rms_all(data,resp,nsite);
+[rms, rmsz, rmst]=calc_rms_all(data,resp,nsite);
 disp(['overall rms=' num2str(rms)]);
+disp(['impedance rms=' num2str(rmsz)]);
+disp(['tipper rms=' num2str(rmst)]);
 set(handles.text(1),'string',['rms=' num2str(rms)]);
 return
 %}

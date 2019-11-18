@@ -31,7 +31,7 @@ switch todo
     case 14
         set_anis_area(hObject,eventdata,h)    
     case 15 
-        set_res_boundary(hObject,eventdata,h)
+        set_res_tear(hObject,eventdata,h)
 end
 set(h.edit(4),'value',1);
 return

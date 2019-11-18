@@ -13,7 +13,7 @@ case 2
     end
     N_layer=1;
 end
-V=model.fix*0.7;
+V=model.fix;
 h=handles;
 
 cobj=findobj(h.axis,'type','surface');
@@ -38,8 +38,8 @@ end
 [yy,xx,zz]=meshgrid(model.y,model.x,model.z);
 slice(yy,xx,zz,V,sy,sx,sz);
 daspect(h.axis,[1 1 1]);
-colormap(flipud(gray(64)));
-caxis([0,1])
+colormap(flipud(gray(8)));
+caxis([0,2.5])
 hold(h.axis,'on');
 % plotting sites. it is really strange that you can use 2d plot on 3d
 % image...

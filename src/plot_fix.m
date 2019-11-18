@@ -13,7 +13,7 @@ case 2
     end
     N_layer=1;
 end
-V=model.fix*0.7;
+V=model.fix;
 h=handles;
 cobj=findobj(h.axis,'type','surface');
 if cobj~=0
@@ -32,8 +32,8 @@ switch opt
         pcolor(h.axis,yy,zz,squeeze(V(N_layer,:,:))');
 end
 hold(h.axis,'off')
-colormap(h.axis,flipud(gray(64)));
-caxis(h.axis,[0,1])
+colormap(h.axis,flipud(gray(8)));
+caxis(h.axis,[0,2.5])
 %{
 fsites=plot(xyz(:,1),xyz(:,2),'^');
 hold on;

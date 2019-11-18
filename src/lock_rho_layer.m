@@ -12,11 +12,11 @@ fix = menu('please select','lock layer','unlock layer','cancel');
 switch fix
     case 1
         BlockPara=blockdlg_fix(size(model.z,1)-1,currentlayer);
-        model.fix(:,:,BlockPara(1):BlockPara(2))=1;
+        model.fix(:,:,BlockPara(1):BlockPara(2))=2;
         model.fix(end,end,end)=2;
     case 2
         BlockPara=blockdlg_fix(size(model.z,1)-1,currentlayer);
-        model.fix(:,:,BlockPara(1):BlockPara(2))=0;
+        model.fix(:,:,BlockPara(1):BlockPara(2))=1;
         model.fix(end,end,end)=2;
     case 3
         return

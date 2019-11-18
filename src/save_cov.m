@@ -89,9 +89,6 @@ else
     % OFFICALLY SUPPORTED) OR "1" 
     % AND ALL UNMASKED AREA AS "1".
     fixmat=model.fix;
-    fixmat(model.fix==0)=1;
-    fixmat(model.fix==1)=0;
-    fixmat(model.fix==9)=9;
     while(i<=Nz)
         for l=i+1:Nz 
             if isequal(fixmat(1:end-1,1:end-1,i),fixmat(1:end-1,1:end-1,l)) 
@@ -116,4 +113,3 @@ else
     fclose(fid);
     disp('...done!')
 end
-        

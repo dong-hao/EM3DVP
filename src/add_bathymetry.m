@@ -19,8 +19,8 @@ if isequal(cfile,0) || isequal(cpath,0)
     return
 end
 % first let us set the model fix to zeros
-model.fix(:)=0;
-model.fix(end,end,end)=1;
+model.fix(:)=1;
+model.fix(end,end,end)=2;
 % and all res to halfspace;
 model.rho(:)=100;
 model.fix(end,end,end)=101;

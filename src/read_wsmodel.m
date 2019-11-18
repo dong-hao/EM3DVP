@@ -136,6 +136,6 @@ model.origin=origin;
 model.rotate=rotate;
 %in case the model have a same rho
 model.rho(end,end,end)=model.rho(end,end,end)+1;
-model.fix=zeros(size(model.rho)); %create fix matrix
+model.fix=ones(size(model.rho)); %create fix matrix
 return
 

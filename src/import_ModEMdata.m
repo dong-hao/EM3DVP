@@ -33,6 +33,9 @@ else
 	nlevel=str2double(get(handles.noisebox(4),'string'))/100;
 	disp('setting fixed TF variance...')
 	data=fix_var(data,nsite,nlevel);
+    for i = 1: nsite
+        data(i).emap_o(:)=1;
+    end
 end
 for i = 1: nsite
     % load original data 

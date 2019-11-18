@@ -167,8 +167,8 @@ model.rho=zeros(length(model.x),length(model.y),length(model.z));
 model.rho=model.rho(:,:,:)+custom.rho;
 model.rho(:,length(model.y),:)=custom.rho+1;
 % in case interp3 can not plot same value.
-model.fix=zeros(size(model.rho));
-model.fix(:,end,:)=1;
+model.fix=ones(size(model.rho));
+model.fix(:,end,:)=0;
 % generate a fix matrix (now it is full of zeros)
 d3_view(hObject,eventdata,handles);
 refresh_status(hObject,eventdata,handles);

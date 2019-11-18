@@ -24,9 +24,9 @@ if isequal(cfile,0) || isequal(cpath,0)
     disp('user canceled...');
     return
 end
-% first let us set the model fix to zeros
-model.fix(:)=0;
-model.fix(end,end,end)=1;
+% first let us set the model fix to ones
+model.fix(:)=1;
+model.fix(end,end,end)=2;
 % and all res to halfspace;
 model.rho(:)=100;
 model.rho(end,end,end)=101;
@@ -79,10 +79,10 @@ for i=1:length(xm)
 %         end
         if topo<=emax % we are still on land...
             model.rho(i,j,1:idx)=rhoA; % change the res.
-            model.fix(i,j,1:idx)=1; % for Air.
+            model.fix(i,j,1:idx)=0; % for Air.
         else % we are down in the sea...
             model.rho(i,j,1:isea-1)=rhoA;
-            model.fix(i,j,1:isea-1)=1; % for Air.
+            model.fix(i,j,1:isea-1)=0; % for Air.
             model.rho(i,j,isea:idx-1)=rhoC; % change the res.
             model.fix(i,j,isea:idx-1)=9; % for Sea water.
         end

@@ -85,7 +85,7 @@ model.rho=zeros(length(model.x),length(model.y),length(model.z));
 model.rho=model.rho(:,:,:)+custom.rho;
 model.rho(:,length(model.y),:)=custom.rho+1;
 % in case interp3 can not plot same value.
-model.fix=zeros(size(model.rho));
+model.fix=ones(size(model.rho));
 model.fix(:,length(model.y),:)=2;
 % generate a fix matrix (now it is full of zeros)
 [Y X]=meshgrid(model.y,model.x);

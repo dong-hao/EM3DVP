@@ -45,8 +45,10 @@ m_batch_plot_resp4 = uimenu('Parent',m_batch,'Label','Batch plot all responses')
 m_batch_aver_model = uimenu('Parent',m_batch,'Label','Batch average models');
 m_output_1d = uimenu('Parent',m_batch,'Label','export 1D model');
 m_export_cond = uimenu('Parent',m_batch,'Label','export conductivity');
+m_export_tz = uimenu( 'Parent', m_batch, 'Label', 'export TZ vector'); 
 m_settings = uimenu( 'Parent', hrvmain, 'Label', 'Settings' );
 m_set_ratio = uimenu( 'Parent', m_settings, 'Label', 'set h/v ratio'); 
+
 
 %button group 'View'
 hbgview=uibuttongroup(hrvmain,'units','normalized','position',...
@@ -175,8 +177,8 @@ handles.colorbar=hcb;
 handles.rholim=[hrmin,hrmax];
 handles.figure=hrvmain;
 handles.menu=[m_batch,m_batch_pic,m_batch_xyz,m_batch_xyr,...
-    m_settings,m_set_ratio,m_batch_xyzv,m_batch_response,m_output_1d,...
-    m_export_cond];
+    m_settings,m_set_ratio,m_batch_xyzv,m_batch_response,...
+    m_export_cond,m_export_tz,m_output_1d];
 
 % set ui callbacks
 set(m_batch_pic,'callback',{@batch_pic_output,handles})
@@ -188,6 +190,7 @@ set(m_batch_plot_response,'callback',{@batch_plot_response,handles})
 set(m_batch_aver_model,'callback',{@batch_aver_model,handles})
 set(m_batch_plot_resp4,'callback',{@batch_plot_resp4,handles})
 set(m_export_cond,'callback',{@export_cond_dlg,handles});
+set(m_export_tz,'callback',{@batch_tz_output,handles});
 set(m_output_1d,'callback',{@export_1Dmodel,handles})
 set(m_set_ratio,'callback',{@set_ratio,handles});
 set(hpbquit,'callback',{@quit_this,hrvmain})

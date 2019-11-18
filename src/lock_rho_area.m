@@ -69,9 +69,9 @@ else
     fix = menu('please select','fix area','unfix area','cancel');
     switch fix
     	case 1
-            vf=1;
+            vf=2;
         case 2
-        	vf=0;
+        	vf=1;
         case 3
             set(h.button(5),'value',1);
         	return

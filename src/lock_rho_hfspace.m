@@ -4,10 +4,10 @@ global model custom
 fix = menu('please select','lock halfspace','unlock halfspace','cancel');
 switch fix
     case 1
-        model.fix(:)=1;
+        model.fix(:)=2;
         model.fix(end,end,end)=2;
     case 2
-        model.fix(:)=0;
+        model.fix(:)=1;
         model.fix(end,end,end)=2;
     case 3
         return
