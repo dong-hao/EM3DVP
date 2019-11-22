@@ -3,6 +3,8 @@
 
 EM3DVP is a package of Matlab scripts. Its primary goal is to provide the users of EM methods an easy-to-use and (hopefully) comprehensive GUI to prepare the input model, data and parameter files for the 3D inversion codes, as well as an interface to plot the result models and responses. Note that this apparently works only for structured mesh. 
 
+![interface pic](https://raw.githubusercontent.com/dong-hao/EM3DVP/master/interface.png)
+
 ## something like a disclaimer
 
 I wrote the package just for the convenience of myself and my colleagues/students in our group. Those who want to try this script are free to use it on academic/educational cases. But of course, I cannot guarantee the script to be working properly and calculating correctly (although I wish so). Have you any questions or suggestions, please feel free to contact me (but don't you expect that I will reply quickly!).  
