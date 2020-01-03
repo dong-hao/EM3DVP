@@ -63,7 +63,7 @@ Those who are willing to contribute are welcomed to try - but I probably won't h
 2. Create your feature branch (`git checkout -b feature/somename`)
 3. Commit your changes (`git commit -am 'Add some features'`)
 4. Push to the branch (`git push origin feature/somename`)
-5. Create a new Pull Request and go through 1-4 again
+5. Create a new Pull Request - lather, rinse, repeat 
 
 ## Commercial Usage
 
@@ -111,10 +111,16 @@ display the iso-surface: click the "view isosfc" button to call the iso-surface 
 oblique profile section: click the "profile" button to call the profile section viewer interface. You can make any oblique  profile on a map and plot the section below the profile. 
 
 ## Q & A
+Q: Do you support *** format?
+
+A: Well, for input data - EM3DVP supports EDI (despite the fact that everyone hates it), Weerachai's ascii and ModEM "list" formats. Note that transfer functions like phase tensors are not supported (at all), as I have not figured out a good way (or is there?) to calculate the variance of those things. Unfortunately, none of these shiny new formats, like Anna's xml or Maximum's json format, is supported. Although I would be happy if someone wants to contribute the supports for those formats. 
+   for input models - EM3DVP can import Weerachai's ascii format (which is also used in ModEM) and Randy's 3D ascii format from WinGlink. Likewise, I am quite open to add port for new format - contribution is always welcomed. 
+
+
 Q: Why are the sites "shifted" from the original location sometimes after the inversion?
 
 A: As Weerachai never explicitly defined the "zero point" of the model space, something like "shifting" could happen if one has data file (site projection) and model file (model projection) with different "zero point" set (especially when one has a non-uniformly distributed site layout, i.e. you have more sites in the west than in the east). I treat the problem by force the zero point of the model file to be the centre of the model, as explained in the "save_model" function comment in the code.
 
 Q: What the hell are the numbers in the input slots below the "set boundary" tick, in "settings" box, "plot results and models" interface?
 
-A: The three numbers are the number of meshes NOT TO display on each side of the model. For example, 6 in the first slot means the most north 6 meshes and the most south 6 meshes will not be displayed in the plot (so that we can concentrate in our study area). Likewise, the 8 in the third slot means the deepest 8 meshes will not be displayed in the plot (so that we can concentrate in the shallow part)
+A: The three numbers are the number of padding cells NOT TO be displayed on each side of the model. For example, 6 in the first slot means the most north 6 cells and the most south 6 cells will not be displayed in the plot (so that we can concentrate in our study area). Likewise, the 8 in the third slot means the deepest 8 layers will not be displayed in the plot (so that we can concentrate in the shallow part). 
