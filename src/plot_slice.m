@@ -143,14 +143,14 @@ if get(handles.setbox(9),'value')==1
         % only plot sites near the profiles...
         switch opt
             case 'x'
-                limit=abs(x(floor(length(x)/2))-x(floor(length(x)/2)+1))*1;
+                limit=abs(x(floor(length(x)/2))-x(floor(length(x)/2)+1))*3;
                 rs=find(abs((xyz(:,1)-sx))<limit);
                 if ~isempty(rs)
                     fsites=plot3(handles.axis(i),xyz(rs,2),xyz(rs,1),xyz(rs,3)+...
                     0.05*(max(z)-min(z)),'v');
                 end                    
             case 'y'                
-                limit=abs(y(floor(length(y)/2))-y(floor(length(y)/2)+1))*2;
+                limit=abs(y(floor(length(y)/2))-y(floor(length(y)/2)+1))*3;
                 rs=find(abs((xyz(:,2)-sy))<limit);
                 if ~isempty(rs)
                     fsites=plot3(handles.axis(i),xyz(rs,2),xyz(rs,1),xyz(rs,3)+...

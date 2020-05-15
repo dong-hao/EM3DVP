@@ -78,6 +78,8 @@ while(~feof(fid_data))
             zmul=796;
         elseif ~isempty(strfind(line,'[V/m]/[T]')) %V/m/nT
             zmul=0.001;
+        elseif ~isempty(strfind(line,'Ohm')) % still Ohm (only found in old ModEM examples)
+            zmul = 796;
         else %[mV/km]/nT
             zmul=1;
         end

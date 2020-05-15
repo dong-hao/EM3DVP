@@ -1,6 +1,6 @@
 % EM3DVP: a Visual Package for 3D Electromagnetic modeling and inversion
-% Release Date:    2019-05-19
-% Release Version: 2019beta1
+% Release Date:    2020-05-15
+% Release Version: 2020beta1
 % EM3D is a package of Matlab scripts. 
 % The primary goal is to provide the users of EM methods an easy-to-use and
 % (hopefully) comprehensive GUI to prepare the input model, data and 

@@ -36,6 +36,8 @@ git pull
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
 
 ## Release History
+* 0.0.5
+    * a couple of new features - now supports "Anisotrophy" features by generating high/low resistivity fine stripes, which cannot be resolved by isotropic modelling. Also updated a long forgoten feature to extract 1D layered resistivity at a given surface point of 3D model.  
 * 0.0.4
     * bug fixes and a couple of features - adding the function to build a tear layer with a boundary file; adding the option to export the induction vector information to be plotted with third party programes (e.g. GMT); the program now display the RMS in a different manner - the RMSs for tipper and impedance are now displayed in separate values. 
 * 0.0.3 

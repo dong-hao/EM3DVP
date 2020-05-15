@@ -79,36 +79,126 @@ else
     switch view
         case 1 % x-z
             BlockPara=anisdlg(length(model.y)-1,custom.currentY);
+            width=BlockPara(6);
+            j = 1;
+            k = 1;
             if BlockPara(5)==0||BlockPara(5)==180
-                model.rho(initA:2:finalA-1,BlockPara(1):BlockPara(2),initB:finalB-1)=BlockPara(3); 
-                model.rho(initA+1:2:finalA-2,BlockPara(1):BlockPara(2),initB:finalB-1)=BlockPara(4);
+                st = initA;
+                ed = finalA;
             elseif BlockPara(5)==270||BlockPara(5)==90
-                model.rho(initA:finalA-1,BlockPara(1):BlockPara(2),initB:2:finalB-1)=BlockPara(3); 
-                model.rho(initA:finalA-1,BlockPara(1):BlockPara(2),initB+1:2:finalB-2)=BlockPara(4);  
+                st = initB;
+                ed = finalB;
+            else
+                msgbox('YUKI.N> arbitary direction of anisotropy is not yet supported...','Selection');
+                beep;
+            end
+            idx1 = zeros(floor((ed-st)/2),1);
+            idx2 = zeros(floor((ed-st)/2),1);
+            for i = st:ed
+                re = mod(i-st+1,2*width);
+                if re == 0
+                    re = 2*width;
+                end
+                if re <= width
+                    idx1(j) = i;
+                    j = j+1;
+                else
+                    idx2(k) = i;
+                    k = k+1;
+                end
+            end
+            idx1(idx1==0)=[];
+            idx2(idx2==0)=[];
+            if BlockPara(5)==0||BlockPara(5)==180
+                model.rho(idx1,BlockPara(1):BlockPara(2),initB:finalB-1)=BlockPara(3); 
+                model.rho(idx2,BlockPara(1):BlockPara(2),initB:finalB-1)=BlockPara(4);
+            elseif BlockPara(5)==270||BlockPara(5)==90
+                model.rho(initA:finalA-1,BlockPara(1):BlockPara(2),idx1)=BlockPara(3); 
+                model.rho(initA:finalA-1,BlockPara(1):BlockPara(2),idx2)=BlockPara(4);  
             else
                 msgbox('YUKI.N> arbitary direction of anisotropy is not yet supported...','Selection');
                 beep;
             end
         case 2 % y-z
             BlockPara=anisdlg(length(model.x)-1,custom.currentX);
+            width=BlockPara(6);
+            j = 1;
+            k = 1;
             if BlockPara(5)==0||BlockPara(5)==180
-                model.rho(BlockPara(1):BlockPara(2),initA:2:finalA-1,initB:finalB-1)=BlockPara(3);
-                model.rho(BlockPara(1):BlockPara(2),initA+1:2:finalA-2,initB:finalB-1)=BlockPara(4);
+                st = initA;
+                ed = finalA;
             elseif BlockPara(5)==270||BlockPara(5)==90
-                model.rho(BlockPara(1):BlockPara(2),initA:finalA-1,initB:2:finalB-1)=BlockPara(3);
-                model.rho(BlockPara(1):BlockPara(2),initA:finalA-1,initB+1:2:finalB-2)=BlockPara(4);
+                st = initB;
+                ed = finalB;
+            else
+                msgbox('YUKI.N> arbitary direction of anisotropy is not yet supported...','Selection');
+                beep;
+            end
+            idx1 = zeros(floor((ed-st)/2),1);
+            idx2 = zeros(floor((ed-st)/2),1);
+            for i = st:ed
+                re = mod(i-st+1,2*width);
+                if re == 0
+                    re = 2*width;
+                end
+                if re <= width
+                    idx1(j) = i;
+                    j = j+1;
+                else
+                    idx2(k) = i;
+                    k = k+1;
+                end
+            end
+            idx1(idx1==0)=[];
+            idx2(idx2==0)=[];
+            if BlockPara(5)==0||BlockPara(5)==180
+                model.rho(BlockPara(1):BlockPara(2),idx1,initB:finalB-1)=BlockPara(3);
+                model.rho(BlockPara(1):BlockPara(2),idx2,initB:finalB-1)=BlockPara(4);
+            elseif BlockPara(5)==270||BlockPara(5)==90
+                model.rho(BlockPara(1):BlockPara(2),initA:finalA-1,idx1)=BlockPara(3);
+                model.rho(BlockPara(1):BlockPara(2),initA:finalA-1,idx2)=BlockPara(4);
             else
                 msgbox('YUKI.N> arbitary direction of anisotropy is not yet supported...','Selection');
                 beep;                
             end
         case 3 % x-y
             BlockPara=anisdlg(size(model.z,1)-1,custom.currentZ);
+            width=BlockPara(6);
+            j = 1;
+            k = 1;
             if BlockPara(5)==0||BlockPara(5)==180
-                model.rho(initB:finalB-1,initA:2:finalA-1,BlockPara(1):BlockPara(2))=BlockPara(3);
-                model.rho(initB:finalB-1,initA+1:2:finalA-2,BlockPara(1):BlockPara(2))=BlockPara(4);
+                st = initA;
+                ed = finalA;
             elseif BlockPara(5)==270||BlockPara(5)==90
-                model.rho(initB:2:finalB-1,initA:finalA-1,BlockPara(1):BlockPara(2))=BlockPara(3);
-                model.rho(initB+1:2:finalB-2,initA:finalA-1,BlockPara(1):BlockPara(2))=BlockPara(4);            
+                st = initB;
+                ed = finalB;
+            else
+                msgbox('YUKI.N> arbitary direction of anisotropy is not yet supported...','Selection');
+                beep;
+            end
+            idx1 = zeros(floor((ed-st)/2),1);
+            idx2 = zeros(floor((ed-st)/2),1);
+            for i = st:ed
+                re = mod(i-st+1,2*width);
+                if re == 0
+                    re = 2*width;
+                end
+                if re <= width
+                    idx1(j) = i;
+                    j = j+1;
+                else
+                    idx2(k) = i;
+                    k = k+1;
+                end
+            end
+            idx1(idx1==0)=[];
+            idx2(idx2==0)=[];
+            if BlockPara(5)==0||BlockPara(5)==180
+                model.rho(initB:finalB-1,idx1,BlockPara(1):BlockPara(2))=BlockPara(3);
+                model.rho(initB:finalB-1,idx2,BlockPara(1):BlockPara(2))=BlockPara(4);
+            elseif BlockPara(5)==270||BlockPara(5)==90
+                model.rho(idx1,initA:finalA-1,BlockPara(1):BlockPara(2))=BlockPara(3);
+                model.rho(idx2,initA:finalA-1,BlockPara(1):BlockPara(2))=BlockPara(4);            
             else
                 msgbox('YUKI.N> arbitary direction of anisotropy is not yet supported...','Selection');
                 beep;                

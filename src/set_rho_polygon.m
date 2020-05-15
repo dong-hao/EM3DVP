@@ -68,7 +68,7 @@ switch view
         for j=1:length(indexx) % i don't like loops, but i have no idea how to use vectors in 3d matrix
             model.rho(indexx(j),BlockPara(1):BlockPara(2),indexz(j))=BlockPara(3);
             % change resistivity of the meshes within the polygon *one by one*
-            model.fix(indexx(j),BlockPara(1):BlockPara(2),indexz(j))=1;
+            model.fix(indexx(j),BlockPara(1):BlockPara(2),indexz(j))=2;
             % lock the meshes within the polygon *one by one*
         end
     case 2
@@ -90,7 +90,7 @@ switch view
             model.rho(BlockPara(1):BlockPara(2),indexy(j),indexz(j))=BlockPara(3);
             % change resistivity of the meshes within the polygon *one by
             % one*
-            model.fix(BlockPara(1):BlockPara(2),indexy(j),indexz(j))=1;
+            model.fix(BlockPara(1):BlockPara(2),indexy(j),indexz(j))=2;
             % lock the meshes within the polygon *one by one*
         end
     case 3
@@ -112,7 +112,7 @@ switch view
             model.rho(indexy(j),indexx(j),BlockPara(1):BlockPara(2))=BlockPara(3);
             % change resistivity of the meshes within the polygon *one by
             % one*
-            model.fix(indexy(j),indexx(j),BlockPara(1):BlockPara(2))=1;
+            model.fix(indexy(j),indexx(j),BlockPara(1):BlockPara(2))=2;
             % lock the meshes within the polygon *one by one*
         end
 end

@@ -1,8 +1,9 @@
 function data=calc_rhophs(data,convert)
 % function to calculate rho and phase from impedance
-% calculating apparent resistivities and phases from impadences.
-%disp('start calculating apparent resistivity')
-% data
+% calculating apparent resistivities and phases (and the corresponding
+% erros) from impadences.
+% disp('start calculating apparent resistivity')
+
 if nargin < 2
     convert = 1;
 end
@@ -29,21 +30,25 @@ dzyy=TF(1:nfreq,12)*convert;
 % calculated using Gary Egbert's formula in Z files.
 rhoxx=(zxxr.^2+zxxi.^2)./freq./5;
 phsxx=atan2(zxxi,zxxr);
-rhoxxe=2*(zxxr.^2+zxxi.^2).^0.5.*dzxx./freq./5;
-phsxxe=abs(asin(dzxx./(zxxr.^2+zxxi.^2).^0.5));
+% this is now standard deviation
+rhoxxe=1.4142*(zxxr.^2+zxxi.^2).^0.5.*dzxx./freq/5;
+phsxxe=abs(asin(dzxx./(zxxr.^2+zxxi.^2).^0.5/1.4142));
 rhoyy=(zyyr.^2+zyyi.^2)./freq./5;
 phsyy=atan2(zyyi,zyyr);
-rhoyye=2*(zyyr.^2+zyyi.^2).^0.5.*dzyy./freq./5;
-phsyye=abs(asin(dzyy./(zyyr.^2+zyyi.^2).^0.5));
+% this is now standard deviation
+rhoyye=1.4142*(zyyr.^2+zyyi.^2).^0.5.*dzyy./freq/5;
+phsyye=abs(asin(dzyy./(zyyr.^2+zyyi.^2).^0.5/1.4142));
 %=========calculate rho and phase from data=======%
 rhoxy=(zxyr.^2+zxyi.^2)./freq./5;
 phsxy=atan2(zxyi,zxyr);
-rhoxye=2*(zxyr.^2+zxyi.^2).^0.5.*dzxy./freq./5;% 2*mu_0*|Zij|*dZij/omega;
-phsxye=abs(asin(dzxy./(zxyr.^2+zxyi.^2).^0.5));% asin(Zij/|Zij|); 
+% this is now standard deviation
+rhoxye=1.4142*(zxyr.^2+zxyi.^2).^0.5.*dzxy./freq/5;% 2*mu_0*|Zij|*dZij/omega;
+phsxye=abs(asin(dzxy./(zxyr.^2+zxyi.^2).^0.5/1.4142));% asin(Zij/|Zij|); 
 rhoyx=(zyxr.^2+zyxi.^2)./freq./5;
 phsyx=atan2(zyxi,zyxr);
-rhoyxe=2*(zyxr.^2+zyxi.^2).^0.5.*dzyx./freq./5;
-phsyxe=abs(asin(dzyx./(zyxr.^2+zyxi.^2).^0.5));
+% this is now standard deviation
+rhoyxe=1.4142*(zyxr.^2+zyxi.^2).^0.5.*dzyx./freq/5;
+phsyxe=abs(asin(dzyx./(zyxr.^2+zyxi.^2).^0.5/1.4142));
 data.rho(:,1)=rhoxx;
 data.rho(:,2)=rhoxxe;
 data.rho(:,3)=rhoxy;
