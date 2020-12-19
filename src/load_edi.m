@@ -63,8 +63,10 @@ if strcmp(yorn,'View')
 end
 %}
 %now project the sites
-disp('all files loaded...');
-disp(location)
+fprintf('totally %d files loaded: \n', nsite);
+for isite = 1:nsite
+    fprintf('%s: %f, %f \n',sitename{isite}, location(isite,1), location(isite,2));
+end
 cx=round(median(location(:,1)));
 cy=round(median(location(:,2)));
 custom.centre=[cx,cy];

@@ -23,18 +23,24 @@ if (isfield(handles, 'project')) % update the project method
         custom.pauto = 1;
     end
 end
-if custom.pauto == 1 %auto
-	latR = round(median(lat));
-	lonR = round(median(lon));
+if custom.pauto == 1 %automatically find a center point for projection
+    % first let's check if we are in a small region (i.e. local
+    % exploration)
+    if max(lon)-min(lon) < 1 || max(lat)-min(lat) < 1 
+        latR = median(lat);
+        lonR = median(lon);
+    else
+        latR = round(median(lat));
+        lonR = round(median(lon));
+    end
     central(1)=latR;
     central(2)=lonR;
-    [y,x,zone]=deg2utm(lat,lon,lonR); % force project to lonR
-    disp('UTM coordinates(Easting, Northing)')
-    disp(y')
-    disp(x')
-    disp(zone');
+	[y,x]=deg2utm(lat,lon,lonR); % force project to lonR
+%     disp('UTM coordinates(Easting, Northing)')
+%     disp(y')
+%     disp(x')
+%     disp(zone');
     [y0,x0,zone]=deg2utm(central(1),central(2),lonR);
-    disp(zone)
     custom.pauto = 1;
 elseif custom.pauto == 0 %fixed 
     if (isfield(handles, 'project')) % update the central point
@@ -48,26 +54,27 @@ elseif custom.pauto == 0 %fixed
     end
     central(1)=latR;
     central(2)=lonR;
-    [y,x,zone]=deg2utm(lat,lon,lonR); % force project to lonR
-    disp('UTM coordinates(Easting, Northing)')
-    disp(y')
-    disp(x')
-    disp(zone');
+    [y,x]=deg2utm(lat,lon,lonR); % force project to lonR
+    % for debug
+%     disp('UTM coordinates(Easting, Northing)')
+%     disp(y')
+%     disp(x')
+%     disp(zone');
     [y0,x0,zone]=deg2utm(central(1),central(2),lonR);
     %[y0,x0]=deg2tranmerc(central(1),central(2),latR,lonR); % force project to lonR latR
-    disp(zone');
     custom.pauto = 0;
 else
     latR = min(lat)+(max(lat)-min(lat))/2;
     lonR = min(lon)+(max(lon)-min(lon))/2;
     central(1)=latR;
     central(2)=lonR;
-    [y,x,zone]=deg2utm(lat,lon,lonR); % call deg2utm to project your sites to UTM.
-    disp('UTM coordinates(Easting, Northing)')
-    disp(y')
-    disp(x')
-    disp(zone');
-    [y0,x0]=deg2utm(central(1),central(2),lonR);
+    [y,x]=deg2utm(lat,lon,lonR); % call deg2utm to project your sites to UTM.
+    % for debug 
+%     disp('UTM coordinates(Easting, Northing)')
+%     disp(y')
+%     disp(x')
+%     disp(zone');
+    [y0,x0,zone]=deg2utm(central(1),central(2),lonR);
     %zone0=median(zone);
     %lonR=(zone0-1)*6+3;
     custom.pauto = 0;
@@ -86,14 +93,11 @@ zone(end+1)=char(nzone);
 custom.centre=central; %store the central point.
 custom.lonR=lonR;
 custom.zone=zone;
-disp('central point coordinates(Easting, Northing)')
-disp(y0)
-disp(x0)
+fprintf('central point coordinates(Easting: %f, Northing: %f)\n',y0,x0);
+
 y=y-y0;
 x=x-x0; % set the centre point to zero.
 xyz(:,1)=x;
 xyz(:,2)=y;
 plot_site(hObject,eventdata,handles,'noname')
 return;
-
-% Function load_default
