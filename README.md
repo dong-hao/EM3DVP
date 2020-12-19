@@ -36,6 +36,8 @@ git pull
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
 
 ## Release History
+* 0.0.6
+    * a couple of bug fixes when adding topography/bathymetry to the model - fixed a bug when locating which mesh grid a site is, and correct the site elevation so that the elevation is consistent with the model air/sea layer depth. Also modified the site projection strategy to use the median location of the stations as the center/reference coordinate when the study region is small enough (< 1 by 1 degree). 
 * 0.0.5
     * a couple of new features - now supports "Anisotrophy" features by generating high/low resistivity fine stripes, which cannot be resolved by isotropic modelling. Also updated a long forgoten feature to extract 1D layered resistivity at a given surface point of 3D model.  
 * 0.0.4
