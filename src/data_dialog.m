@@ -252,5 +252,7 @@ set(hme1,'callback',{@box_edit_callback,h2});
 set(hme2,'callback',{@box_edit_callback,h2});
 set(hme3,'callback',{@box_edit_callback,h2});
 set(hmp,'selectionchangefcn',{@project_sites,h2});
+set(hmplat,'callback',{@project_sites,h2});
+set(hmplon,'callback',{@project_sites,h2});
 set(hquit,'callback',{@quit_this,h2.figure});
 return
