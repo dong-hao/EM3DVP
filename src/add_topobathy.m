@@ -32,7 +32,7 @@ model.rho(:)=100;
 model.rho(end,end,end)=101;
 cfilename=[cpath,cfile];
 data=load(cfilename); %load the xyzfile of bathymetry
-east = data(:,1);% for dsm2 +8000;
+east = data(:,1);
 nort = data(:,2);
 elev = data(:,3);
 % now convert the geological coordinate back into cartesian 
@@ -52,8 +52,7 @@ for i=1:length(xm)
 end
 [yy,xx] = meshgrid(ym,xm);
 eleint = griddata(y,x,elev,yy,xx,'linear');
-emax=max(eleint(:)); %highest point of the data (set to 0);
-custom.zero(3)=emax;
+emax=max(eleint(:)); % highest point of the data (set to 0);
 % store the xyz dat in a matrix.
 % =======for debug======= %
 % figure; 

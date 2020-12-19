@@ -54,9 +54,6 @@ for i=1:length(xm)
         % calculate the distance between the ground/seabed to the top of
         % the model
         topo=round((emax-eleint(i,j))/10)*10;
-%         if i==13&&j==13;
-%             disp([i,j,topo]);
-%         end
         if topo<=0 % we are on land... do nothing here
             
         else % we are down in the sea...            
