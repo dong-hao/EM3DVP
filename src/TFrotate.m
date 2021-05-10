@@ -10,7 +10,7 @@ Zr=Z;
 if mod(alpha,2*pi)<0.0001
     return
 end
-nfreq=length(Z);
+nfreq=size(Z,1);
 t=zeros(nfreq,4);
 t(:,1)=complex(Z(:,1),Z(:,2));
 t(:,2)=complex(Z(:,4),Z(:,5));
