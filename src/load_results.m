@@ -4,9 +4,9 @@ function load_results(hObject,eventdata,handles)
 % or Gary's ModEM inversion files
 global model nsite xyz data resp sitename location
 %=================read model==================%
-[mname, mdir]=uigetfile({'*model*',  'Model files (*model*)';'*.rho',  'Model files (*.rho)';'*.*',  'Any file'}...
+[mname, mdir]=uigetfile({'*.rho',  'Model files (*.rho)';'*model*',  'Model files (*model*)';'*.*',  'Any file'}...
     ,'Open WSINV3DMT or ModEM Output File');
-if mname==0;
+if mname==0
     fprintf('user canceled reading model');
     clear;
     return

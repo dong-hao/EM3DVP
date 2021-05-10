@@ -123,6 +123,10 @@ else
         fprintf(fid,'> %i %i\n',nfreq,Nsite);
         %=================start writing impedances===============%
         for s=1:Nsite % site loop
+            if sum(emap(s,:,:)) < 1
+                fprintf('ERROR: all transfer functions for site %s are missing!\n',sitename{s});
+                error('please consider removing this site, if not needed')
+            end
             for f=1:nfreq % freq loop
                 if InvType==2||InvType==4 % only off-diagonal elements are needed for Z
                     if emap(s,f,2) == 0 
