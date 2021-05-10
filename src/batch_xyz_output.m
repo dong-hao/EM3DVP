@@ -36,7 +36,7 @@ prompt = {'Enter the center lat',...
     'Enter Z (Horizontal direction) slice locations:'};
 dlg_title = 'Specify the slices you want to output';
 num_lines = 3;
-def = {'38','108.5',num2str(zslices)};
+def = {num2str(custom.centre(1)),num2str(custom.centre(2)),num2str(zslices)};
 answer = inputdlg(prompt,dlg_title,num_lines,def);% dialog to input slice locations
 if isempty(answer)
     disp('user canceled...')

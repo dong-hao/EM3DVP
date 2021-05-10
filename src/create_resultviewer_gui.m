@@ -33,7 +33,7 @@ hrmax=uicontrol(hrvmain,'style','edit',...
 hrmin=uicontrol(hrvmain,'style','edit','units','normalized','position',...
     [0.84 0.12 0.04 0.03],'string',num2str(default.rhomin),'backgroundcolor',...
     enable_color,'enable','off');
-% create a menu for further use
+% create a menu for futural use
 m_batch = uimenu( 'Parent', hrvmain, 'Label', 'Batch' );
 m_batch_pic = uimenu('Parent',m_batch,'Label','Batch output pics');
 m_batch_xyz = uimenu('Parent',m_batch,'Label','Batch output xyzs');
@@ -50,6 +50,7 @@ m_export_tz = uimenu( 'Parent', m_batch, 'Label', 'export TZ vector');
 m_export_rhophs = uimenu( 'Parent', m_batch, 'Label', 'export RHO/PHS files'); 
 m_settings = uimenu( 'Parent', hrvmain, 'Label', 'Settings' );
 m_set_ratio = uimenu( 'Parent', m_settings, 'Label', 'set h/v ratio'); 
+m_save_siteloc = uimenu( 'Parent', m_settings, 'Label', 'save a site location list');
 
 
 %button group 'View'
@@ -179,8 +180,9 @@ handles.colorbar=hcb;
 handles.rholim=[hrmin,hrmax];
 handles.figure=hrvmain;
 handles.menu=[m_batch,m_batch_pic,m_batch_xyz,m_batch_xyr,...
-    m_settings,m_set_ratio,m_batch_xyzv,m_batch_response,...
+    m_settings,m_batch_xyzv,m_batch_response,...
     m_export_cond,m_export_tz,m_output_1d,m_export_visco, m_export_rhophs];
+handles.settings=[m_settings,m_set_ratio,m_save_siteloc];
 
 % set ui callbacks
 set(m_batch_pic,'callback',{@batch_pic_output,handles})
@@ -197,6 +199,7 @@ set(m_export_tz,'callback',{@batch_tz_output,handles});
 set(m_export_rhophs,'callback',{@batch_rhophs_output,handles});
 set(m_output_1d,'callback',{@export_1Dmodel,handles})
 set(m_set_ratio,'callback',{@set_ratio,handles});
+set(m_save_siteloc,'callback',{@save_siteloc,handles});
 set(hpbquit,'callback',{@quit_this,hrvmain})
 set(hpbload,'callback',{@load_results,handles})
 set(h3d_multi_slice,'callback',{@subview,handles})

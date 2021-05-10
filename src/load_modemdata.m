@@ -11,13 +11,18 @@ if isequal(cfilename,0) || isequal(cdir,0)
     return
 end
 data=gen_data;
-[data,xyz,sitename,location]=read_modemdata(cfilename,cdir,data);
+[data,xyz,sitename,location,lat,lon]=read_modemdata(cfilename,cdir,data);
 nsite=length(location);
 custom.ftable=data(1).freq_o;
 custom.flist=1:data(1).nfreq_o;
 custom.origin=1;
-cx=round((max(location(:,1))+min(location(:,1)))/2);
-cy=round((max(location(:,2))+min(location(:,2)))/2);
+if lat == 0 || lon == 0
+    cx=round((max(location(:,1))+min(location(:,1)))/2);
+    cy=round((max(location(:,2))+min(location(:,2)))/2);
+else
+    cx = lat;
+    cy = lon;
+end
 custom.centre=[cx,cy];
 % set(handles.project(3),'string',num2str(cx));
 % set(handles.project(4),'string',num2str(cy));

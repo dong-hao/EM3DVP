@@ -72,6 +72,15 @@ for isite=1:nsite
     % find which grid mesh the station lies in 
     xi=find(model.x>xyz(isite,1),1)-1;
     yi=find(model.y>xyz(isite,2),1)-1;
+    if isempty(xi) || isempty(yi) 
+        % this station is not even within the model range
+        % there must be something wrong with it. skip it for now
+        continue
+    elseif xi == 0 || yi == 0
+        % this station is not even within the model range
+        % there must be something wrong with it. skip it for now
+        continue
+    end
     if model.rho(xi,yi,1)>=1e7 % please note we only sink stations with topography (air)
         zi=find(model.rho(xi,yi,:)<1e7,1);
         sink=model.z(zi);

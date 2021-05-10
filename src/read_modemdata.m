@@ -1,4 +1,4 @@
-function [data,xyz,sitename,location]=read_modemdata(fname,fdir,data,unit,s)
+function [data,xyz,sitename,location,lat,lon]=read_modemdata(fname,fdir,data,unit,s)
 % Read Gary's ModEM "list" type data file
 %=================check var===================%
 if nargin==4
@@ -102,8 +102,21 @@ while(~feof(fid_data))
         line=fgetl(fid_data);
         for isite=1:nsite% site loop
             % firstly read some site information...
+            try
+                % see if we even have this site - should say I have seen too 
+                % many peculiar data files from our users
+                num=sscanf(line,'%*f %*s %f %f %f %f %f %*s %*f %*f %*f',5);
+            catch IERR
+                if strfind(IERR.identifier,'badstring')>0
+                    disp(['missing site found at site #' num2str(isite) ...
+                        ', total ' num2str(nsite) ' sites expected!'])
+                    % data(isite).emap_o(ifreq:end,(seqs+1)*3)=0;
+                    error('missing site encountered, please check your data file')
+                else 
+                    rethrow(IERR)
+                end
+            end
             str=sscanf(line,'%*f %s %*f %*f %*f %*f %*f %*s %*f %*f %*f');
-            num=sscanf(line,'%*f %*s %f %f %f %f %f %*s %*f %*f %*f',5);
             location(isite,1)=num(1);
             location(isite,2)=num(2);
             xyz(isite,1)=num(3);
