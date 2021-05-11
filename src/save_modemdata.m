@@ -14,6 +14,8 @@ else
     nfreq=length(ftable);
     elev=zeros(nsite,1);
     fixed=model.fix(1:end-1,1:end-1,1);
+    clat = custom.centre(1);
+    clon = custom.centre(2);
     if any(fixed(:)~=0)
         % we are running a inversion with topography/bathymetry
         if custom.zero(3)==0 % we don't have topography, only bathymetry
@@ -119,7 +121,7 @@ else
         fprintf(fid,'> exp(+i\\omega t)\n');
         fprintf(fid,'> [mV/km]/[nT] \n');
         fprintf(fid,'> 0.00 \n');
-        fprintf(fid,'> 0.000 0.000 \n'); %geographic (Lon Lat) coodinate at (0,0)
+        fprintf(fid,'> %5.2f %5.2f \n', clon, clat); %geographic (Lon Lat) coodinate 
         fprintf(fid,'> %i %i\n',nfreq,Nsite);
         %=================start writing impedances===============%
         for s=1:Nsite % site loop
@@ -202,7 +204,7 @@ else
             fprintf(fid,'> exp(+i\\omega t)\n');
             fprintf(fid,'> []\n');
             fprintf(fid,'> 0.00\n');
-            fprintf(fid,'> 0.000 0.000\n'); %geographic (Lon Lat) coodinate at (0,0)
+            fprintf(fid,'> %5.2f %5.2f \n', clon, clat); %geographic (Lon Lat) coodinate 
             fprintf(fid,'> %i %i\n',nfreq,Nsite);
             %=================start writing tippers===============%
             for s=1:Nsite % site loop
