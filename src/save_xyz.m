@@ -23,9 +23,9 @@ if isempty(h)
     return;
 end
 xx=get(h,'xdata');
-yy=get(h,'ydata');
+yy=get(h,'zdata');
 cc=get(h,'cdata');
-[m n]=size(xx);
+[m, n]=size(xx);
 xyz=zeros(3,m*n);
 xyz(1,:)=reshape(xx,1,m*n);
 xyz(2,:)=reshape(yy,1,m*n);
@@ -35,6 +35,7 @@ xyz(3,:)=reshape(cc,1,m*n);
     'Save xyz file(of current figure) for plotting in other applications');
 if isequal(xyzfile,0) || isequal(xyzpath,0)
     disp('user canceled...');
+    return
 else
     fid=fopen(fullfile(xyzpath,xyzfile),'w');
     fprintf(fid,'%i %i %g\n',reshape(xyz,3*m*n,1));
@@ -43,14 +44,27 @@ else
 end
 hsite=findobj(handles.axis(i),'type','line');
 if ~isempty(hsite)
-    nos=length(hsite);
+    stype=length(hsite);
+    if stype == 1 % see if this comes from an old Matlab plot parameter
+        nos=length(hsite.XData);
+    else
+        nos=stype;
+    end
     siteloc=zeros(nos,3);
     for i=1:nos
-        siteloc(i,1)=nos-i+1;
-        siteloc(i,2)=get(hsite(i),'XData');
-        siteloc(i,3)=get(hsite(i),'YData');
+        if stype==1
+            siteloc(i,1)=i;
+            siteloc(i,2)=hsite.XData(i);
+            siteloc(i,3)=hsite.ZData(i);
+        else
+            siteloc(i,1)=nos-i+1;
+            siteloc(i,2)=get(hsite(i),'XData');
+            siteloc(i,3)=get(hsite(i),'ZData');
+        end
     end    
-    siteloc=flipud(siteloc);
+    if stype~=1
+        siteloc=flipud(siteloc);
+    end
 else
     disp('no sites found on this plot')
     return
@@ -67,10 +81,3 @@ else
     fclose(fid);
 end
 return
-
-
-%==========create response viewer gui===========%
-%
-%     use (nearly) the same gui as curve editor
-%
-%===============================================%
