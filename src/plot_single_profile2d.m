@@ -5,7 +5,7 @@ function [Plength,pid,sid]=plot_single_profile2d(aid,x1,x2,y1,y2,x,y,z,...
 % calculate profile length
 Plength=sqrt((x1-x2)^2+(y1-y2)^2);
 % Z location of the sites to be plotted
-siteup=0.03*(max(z)-min(z));
+siteup=0.01*(max(z)-min(z));
 % find the profile and plot the section
 [iX,iY]=cross_mesh(x1,x2,y1,y2,x,y);
 pid=oblique_profile2d(aid,x,y,z,SubNv,iX,iY);
