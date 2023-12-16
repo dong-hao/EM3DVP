@@ -16,6 +16,9 @@ for isite=1:nsite
         dN1 = sum(map1(:));
         temp1 = temp1 + misfit1;
         N1 = N1 + dN1;
+    else
+        misfit1 = 0;
+        N1 = 0;
     end
     if ~isempty(find(data(isite).emap_o(:,3)==1,1))
         dat=data(isite).tf_o(:,[1,2,10,11]);
@@ -28,6 +31,9 @@ for isite=1:nsite
         dN2 = sum(map2(:));
         temp2 = temp2 + misfit2;
         N2 = N2 + dN2;
+    else
+        misfit2 = 0;
+        N2 = 0;
     end
     if ~isempty(find(data(isite).emap_o(:,15)==1,1))
         dat=data(isite).tf_o(:,[13,14,16,17]);
@@ -40,6 +46,9 @@ for isite=1:nsite
         dN3 = sum(map3(:));
         temp3 = temp3 + misfit3;
         N3 = N3 + dN3;
+    else
+        misfit3 = 0;
+        N3 = 0;
     end
 end
 rms=sqrt((temp1+temp2+temp3)/(N1+N2+N3));
