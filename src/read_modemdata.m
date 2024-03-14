@@ -9,7 +9,8 @@ elseif nargin<3
     error('not enough input arguments, 2 at least');
 end
 %===============pre-read the data file for parameters ===================%
-[perlist,sitelist,complist,signs,clat,clon,rotate,zmul]=scan_modemdata(fname,fdir);
+haveAzi = 0; % flag to test if the data file has the Azimuth info
+[perlist,sitelist,complist,signs,clat,clon,rotate,zmul,haveAzi]=scan_modemdata(fname,fdir);
 if ~isempty(s) %overiding the sign from the data file
     signs = s;
 end
@@ -61,7 +62,11 @@ while(~feof(fid_data))
         fprintf('reading block # %d ...\n', iblock);
         presite = -1;
         % essentially we find a TF slot to throw the data in
-        temp = textscan(fid_data,'%f %s %f %f %f %f %f %s %f %f %f');
+        if haveAzi % have Azimuth - new type of data
+            temp = textscan(fid_data,'%f %s %f %f %f %f %f %s %f %f %f %f %f %f %f');
+        else % don't have Azimuth - older type of data
+            temp = textscan(fid_data,'%f %s %f %f %f %f %f %s %f %f %f');
+        end
         ndata = size(temp{1},1);
         for idata = 1:ndata
             [sitestr]=temp{2}{idata};
