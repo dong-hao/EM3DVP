@@ -12,9 +12,15 @@ perlist = cell(2,1);
 sitelist = perlist;
 complist = perlist;
 ndata = perlist;
+haveAzi = 0;
 while(~feof(fid_data))
     line=fgetl(fid_data);
     if strfind(line,'#') %try to skip any comments
+        if strfind(line,'HxAzi') | strfind(line,'ExAzi')
+            % we probably have the (not very useful) azimuth information
+            % here!
+            haveAzi = 1;
+        end
         continue
     elseif strfind(line,'>') %now we have something to look at 
         NL = NL + 1;
@@ -64,7 +70,11 @@ while(~feof(fid_data))
         end
         continue
     else % see how many sites/resp/frequencies do we really have 
-        temp = textscan(fid_data,'%f %s %f %f %f %f %f %s %f %f %f');
+        if haveAzi % have Azimuth - new type of data
+            temp = textscan(fid_data,'%f %s %f %f %f %f %f %s %f %f %f %f %f %f %f');
+        else % don't have Azimuth - older type of data
+            temp = textscan(fid_data,'%f %s %f %f %f %f %f %s %f %f %f');
+        end
         ndata{block} = size(temp{1},1);
         perlist{block} = unique(temp{1});
         sitelist{block} = sortrows(strtrim(char(unique(temp{2}))));
