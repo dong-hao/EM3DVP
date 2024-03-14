@@ -36,6 +36,8 @@ git pull
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
 
 ## Release History
+* 0.0.72
+    * new feature implementation to be compatible with data files with additional Azimuth information - note here we don't have any use of those info in the code, yet. 
 * 0.0.71
     * fixed an issue for the RMS calculation when loading a data file without impedance/tipper components.
 * 0.0.7
