@@ -1,4 +1,4 @@
-function [perlist,sitelist,complist,signs,clat,clon,rotate,zmul]=scan_modemdata(fname,fdir)
+function [perlist,sitelist,complist,signs,clat,clon,rotate,zmul,haveAzi]=scan_modemdata(fname,fdir)
 % Scan Gary's ModEM "list" type data file, and find out how the number of
 % site, frequency, and response of the data file 
 % this is a major update to deal with extremely poorly arranged data files 
