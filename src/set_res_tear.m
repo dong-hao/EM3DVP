@@ -1,5 +1,5 @@
 function set_res_tear(hObject,eventdata,h)
-% a function to set a resisitivity tear/boundary to 3d models for ModEM 
+% a function to set a resistivity tear/boundary to 3d models for ModEM 
 % 
 % the function read a boundary file (in xyz format) to setup boundary/tear 
 % at a certain location, currently just support horizontal(depth)

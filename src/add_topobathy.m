@@ -8,15 +8,15 @@ function add_topobathy(hObject,eventdata,h)
 % and distribution of the topography/bathymetry.
 % As WSINV3DMT doesn't support topography officially, this is just an
 % experimental feature for the author's own FWD routines and is sealed for
-% stablility issues. 
+% stability issues. 
 % =================== PLEASE USE AT YOUR OWN RISK ========================%
 % the function read topography grid files(in xyz format) to get the depth 
 % and distribution of the topography/bathymetry,
-% then set relevent cells' resistivity to air (1e7 Ohmm) or seawater,
-% a typical resistence of seawater might be about 0.3 Ohmm(Ocean)
+% then set relevant cells' resistivity to air (1e7 Ohmm) or seawater,
+% a typical resistance of seawater might be about 0.3 Ohmm(Ocean)
 global model custom
-rhoC=custom.sea; % rhoC: the resistence of SEA water
-rhoA=custom.air; % rhoA: the resistence of AIR
+rhoC=custom.sea; % rhoC: the resistance of SEA water
+rhoA=custom.air; % rhoA: the resistance of AIR
 [cfile,cpath] = uigetfile({'*.xyz','xyz file';...
     '*.*','All Files (*.*)'}...
     ,'load elevation *.xyz file');

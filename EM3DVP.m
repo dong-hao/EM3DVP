@@ -1,6 +1,6 @@
 % EM3DVP: a Visual Package for 3D Electromagnetic modeling and inversion
-% Release Date:    2021-05-04
-% Release Version: 2021beta1
+% Release Date:    2024-07-04
+% Release Version: 0.08
 % EM3D is a package of Matlab scripts. 
 % The primary goal is to provide the users of EM methods an easy-to-use and
 % (hopefully) comprehensive GUI to prepare the input model, data and 
@@ -112,6 +112,7 @@ default.ratio=[1 1 1]; % set h/v ratio here for daspect.;
 default.rotate=0;
 default.centre=[35,115];
 default.zone='31 N';
+default.ntopo=0;% number of topography layers
 default.pauto=1;
 default.lonR=115;
 default.origin=0; % set flag for using origin or interploted data.

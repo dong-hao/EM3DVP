@@ -1,16 +1,16 @@
 function add_bathymetry(hObject,eventdata,h)
 % a function to add ONLY bathymetry to 3d models for ModEM 
 % it should be noted that the topography of the land is IGNORED in this
-% function. Anything above sealevel will be set to zero(top of the model)
+% function. Anything above sea level will be set to zero(top of the model)
 % and anything below will be set to be a MINUS (-) elevation
 % 
 % the function read elevation grid files(in xyz format) to get the depth 
 % and distribution of the topography/bathymetry.
 % Anything below the sea floor (0 in grid files) will be set up as sea 
 % water 
-% a typical resistence of seawater might be about 0.3 Ohmm(Ocean)
+% a typical resistance of seawater might be about 0.3 Ohmm(Ocean)
 global model custom
-rhoC=custom.sea; % rhoC: the resistence of SEA water
+rhoC=custom.sea; % rhoC: the resistance of SEA water
 [cfile,cpath] = uigetfile({'*.xyz','xyz file';...
     '*.*','All Files (*.*)'}...
     ,'load elevation *.xyz file');
@@ -26,9 +26,16 @@ model.rho(:)=100;
 model.fix(end,end,end)=101;
 cfilename=[cpath,cfile];
 data=load(cfilename); %load the xyzfile of bathymetry
-east = data(:,2);
-nort = data(:,1);
+east = data(:,1);
+nort = data(:,2);
 elev = data(:,3);
+% now convert the geological coordinate back into cartesian 
+lonR=custom.lonR;
+centre=custom.centre;
+[y0,x0]=deg2utm(centre(1),centre(2),lonR);
+[y,x]=deg2utm(nort,east,lonR);
+y=y-y0;
+x=x-x0;
 xm=zeros(length(model.x)-1,1); % N-S
 ym=zeros(length(model.y)-1,1); % E-W
 for i=1:length(ym)
@@ -38,7 +45,7 @@ for i=1:length(xm)
     xm(i)=(model.x(i)+model.x(i+1))/2;
 end
 [yy,xx] = meshgrid(ym,xm);
-eleint = griddata(east,nort,elev,yy,xx,'linear');
+eleint = griddata(y,x,elev,yy,xx,'linear');
 emax=0;
 % store the xyz dat in a matrix.
 % =======for debug======= %
