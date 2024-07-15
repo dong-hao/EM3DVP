@@ -12,11 +12,11 @@ function add_topobathy(hObject,eventdata,h)
 % =================== PLEASE USE AT YOUR OWN RISK ========================%
 % the function read topography grid files(in xyz format) to get the depth 
 % and distribution of the topography/bathymetry,
-% then set relevant cells' resistivity to air (1e7 Ohmm) or seawater,
-% a typical resistance of seawater might be about 0.3 Ohmm(Ocean)
+% then set relevent cells' resistivity to air (1e7 Ohmm) or seawater,
+% a typical resistence of seawater might be about 0.3 Ohmm(Ocean)
 global model custom
-rhoC=custom.sea; % rhoC: the resistance of SEA water
-rhoA=custom.air; % rhoA: the resistance of AIR
+rhoC=custom.sea; % rhoC: the resistence of SEA water
+rhoA=custom.air; % rhoA: the resistence of AIR
 [cfile,cpath] = uigetfile({'*.xyz','xyz file';...
     '*.*','All Files (*.*)'}...
     ,'load elevation *.xyz file');
@@ -52,6 +52,22 @@ for i=1:length(xm)
 end
 [yy,xx] = meshgrid(ym,xm);
 eleint = griddata(y,x,elev,yy,xx,'linear');
+% find out the NaN cells (this is normally due to the lack of DEM data in
+% some part of the model) and fill it with the nearest value
+nanidx = isnan(eleint);
+nanlist = find(nanidx);
+nlist = find(~nanidx);
+nnan = length(nanlist);
+if nnan > 0
+    for i = 1 : nnan
+        dy = yy(~nanidx) - yy(nanlist(i));
+        dx = xx(~nanidx) - xx(nanlist(i));
+        dist = dy.^2 + dx.^2;
+        [c, mind] = min(dist);
+        eleint(nanlist(i)) = eleint(nlist(mind));
+    end
+end
+
 emax=max(eleint(:)); % highest point of the data (set to 0);
 % store the xyz dat in a matrix.
 % =======for debug======= %

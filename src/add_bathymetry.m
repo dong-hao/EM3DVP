@@ -46,6 +46,21 @@ for i=1:length(xm)
 end
 [yy,xx] = meshgrid(ym,xm);
 eleint = griddata(y,x,elev,yy,xx,'linear');
+% find out the NaN cells (this is normally due to the lack of DEM data in
+% some part of the model) and fill it with the nearest value
+nanidx = isnan(eleint);
+nanlist = find(nanidx);
+nlist = find(~nanidx);
+nnan = length(nanlist);
+if nnan > 0
+    for i = 1 : nnan
+        dy = yy(~nanidx) - yy(nanlist(i));
+        dx = xx(~nanidx) - xx(nanlist(i));
+        dist = dy.^2 + dx.^2;
+        [c, mind] = min(dist);
+        eleint(nanlist(i)) = eleint(nlist(mind));
+    end
+end
 emax=0;
 % store the xyz dat in a matrix.
 % =======for debug======= %
