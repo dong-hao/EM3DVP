@@ -38,7 +38,7 @@ I decided to use a new system of version as the package name keeps going longer.
 ## Release History
 * 0.0.8
     * a bug fix for the automatic bathymetry/topography configuration (probably been around for a couple of years) - this deals with the NaN values after generating the topography/bathymetry, when the DEM coverage is insufficient.
-* * 0.0.72
+* 0.0.72
     * new feature implementation to be compatible with data files with additional Azimuth information - note here we don't have any use of those info in the code, yet. 
 * 0.0.71
     * fixed an issue for the RMS calculation when loading a data file without impedance/tipper components.
