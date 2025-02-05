@@ -185,14 +185,14 @@ else
                     else
                         fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TX \t %12.4E \t %12.4E \t %12.4E \n',...
                             1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),13),-data(s).tf(ftable(f),14),errmat(s,ftable(f),5));
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),13),data(s).tf(ftable(f),14),errmat(s,ftable(f),5));
                     end
                     if emap(s,f,6) == 0 
                         disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
                     else
                         fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TY \t %12.4E \t %12.4E \t %12.4E \n',...
                             1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),16),-data(s).tf(ftable(f),17),errmat(s,ftable(f),6));
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),16),data(s).tf(ftable(f),17),errmat(s,ftable(f),6));
                     end
                 end
             end
@@ -214,14 +214,14 @@ else
                     else
                         fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TX \t %12.4E \t %12.4E \t %12.4E \n',...
                             1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),13),-data(s).tf(ftable(f),14),errmat(s,ftable(f),5));
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),13),data(s).tf(ftable(f),14),errmat(s,ftable(f),5));
                     end
                     if emap(s,f,6) == 0 
                         disp(['skipping masked data @ site #',num2str(s),' freq #',num2str(f)])
                     else
                         fprintf(fid,'%12.4E \t %s \t %f \t %f \t %f \t %f \t %f \t TY \t %12.4E \t %12.4E \t %12.4E \n',...
                             1/data(s).freq(ftable(f)), char(sitename{s}), location(s,1),location(s,2),...
-                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),16),-data(s).tf(ftable(f),17),errmat(s,ftable(f),6));
+                            xyz(s,1),xyz(s,2),elev(s),data(s).tf(ftable(f),16),data(s).tf(ftable(f),17),errmat(s,ftable(f),6));
                     end
                 end
             end

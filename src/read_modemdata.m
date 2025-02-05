@@ -119,4 +119,3 @@ disp(['lon: ' num2str(clon)]);
 fclose(fid_data);
 
 return
-

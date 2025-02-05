@@ -72,7 +72,7 @@ else
     addpath(genpath([cdir '/src']),'-end');
 end
 
-ScriptVersion='EM3D2019beta1';
+ScriptVersion='EM3DVP0.08';
 % set default settings for model parameters here
 % i think i had better throw all those default settings into an
 % configuration file(.cfg) to avoid the mess.
