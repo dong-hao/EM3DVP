@@ -36,6 +36,8 @@ git pull
 I decided to use a new system of version as the package name keeps going longer... Now I simply call it EM3DVP... Also, I tried to remove any rude words within my comments... If you found some part of the comments uncomfortable, please let me know.
 
 ## Release History
+* 0.0.9
+    * a quick bug fix for an import/export bug for tipper data as ModEM list file - the bug could lead to a sign problem when importing data from the "site location" panel
 * 0.0.8
     * a bug fix for the automatic bathymetry/topography configuration (probably been around for a couple of years) - this deals with the NaN values after generating the topography/bathymetry, when the DEM coverage is insufficient.
 * 0.0.72
